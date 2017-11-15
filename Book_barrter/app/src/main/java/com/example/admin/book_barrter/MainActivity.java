@@ -8,23 +8,36 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    FragmentManager fm = getFragmentManager();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+        login_window();
+
+
     }
 
-    public void signup(View view) {
+    public void login_window(){
 
-        signup sign = new signup();
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft  = fm.beginTransaction();
-
-        // the last parameter is known as the fragment TAG ,findfragmentbyTAG, it can be used for that finding purpose...so it just a string value
-         ft.add(R.id.frames,sign,"SIGNUP");
+        login log =  new login();
+        FragmentTransaction ft = fm.beginTransaction();
+        // that login is just a tag, which we addd just for the sake of easeness .. . .so that we can identify that ft
+        ft.replace(R.id.main_screen,log,"LOGIN");
         ft.commit();
 
-
-
     }
+
+
+
+
+
+
 }
