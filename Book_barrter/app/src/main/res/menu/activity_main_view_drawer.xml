@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/book_treasure"
+
+            android:title="Book Treasure" />
+        <item
+            android:id="@+id/upload_books"
+
+            android:title="Uplaod Book" />
+        <item
+            android:id="@+id/Borrower_books"
+            android:title="Books Borrowed From me" />
+        <item
+            android:id="@+id/borrowed_books"
+
+            android:title="Books Borrowed by me" />
+
+        <item
+            android:id="@+id/B_requests"
+
+            android:title="Requests of Borrowers" />
+        <item
+            android:id="@+id/M_requests"
+
+            android:title="My Requested Books" />
+        <item
+            android:id="@+id/history"
+
+            android:title="History" />
+    </group>
+
+
+</menu>

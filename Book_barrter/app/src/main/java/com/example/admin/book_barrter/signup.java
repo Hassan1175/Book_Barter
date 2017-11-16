@@ -1,6 +1,7 @@
 package com.example.admin.book_barrter;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 
 public class signup extends Fragment {
 
-    Button signup;
+    Button signp;
 
     @Nullable
     @Override
@@ -24,12 +25,15 @@ public class signup extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.signup,container,false);
 
-        signup = (Button) view.findViewById(R.id.signupu);
+        signp = (Button) view.findViewById(R.id.registration);
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        signp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"sdasdasda",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),"sdasdasda",Toast.LENGTH_LONG).show();
+
+            Intent i = new Intent(getActivity(),Home_screen.class);
+                startActivity(i);
             }
         });
 

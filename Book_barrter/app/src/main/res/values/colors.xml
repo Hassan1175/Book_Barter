@@ -8,4 +8,21 @@
 
     <color name="active_dots">#060606</color>
     <color name="unactive_dots">#F10F0F</color>
+
+
+
+
+
+
+
+    <color name="lightgrey">#ededed</color>
+    <color name="purple">#7c4dff</color>
+    <color name="green">#7c4</color>
+
+    <color name="materialgreen">#00bfa5</color>
+    <color name="yelow">#FFC107</color>
+    <color name="darkyellow">#FFA000</color>
+    <color name="pink">#ff4081</color>
+
+    <color name="back">#fcfcfc</color>
 </resources>
