@@ -54,7 +54,8 @@ public class App_start extends AppCompatActivity {
         }
     }
 
-    //here i am making all methods for fragemnt, which will load on loading that class, mean that will be the
+    //here i am making various methods for the whoich will be laod the relevent fragment, on clicking the relevant card.......
+    //each card will load relevant fragment...
 
     public void book_catalog(){
         Book_catalog books=  new Book_catalog();
