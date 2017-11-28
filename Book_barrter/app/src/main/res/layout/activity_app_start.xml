@@ -4,15 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.admin.book_barrter.App_start">
+    tools:context="com.example.admin.book_barrter.App_start"
+    android:id="@+id/app_start">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Welcome, here u will play with fragment in the Frame Layout. . . "
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
 
+    android:textStyle="bold"
 
+    android:textSize="20dp"
 
-        />
+    />
+
 </FrameLayout>
