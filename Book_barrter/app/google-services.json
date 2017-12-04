@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "86339101594",
+    "firebase_url": "https://bookbarter-a9d9c.firebaseio.com",
+    "project_id": "bookbarter-a9d9c",
+    "storage_bucket": "bookbarter-a9d9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86339101594:android:e63b343e5c38f2d7",
+        "android_client_info": {
+          "package_name": "com.example.admin.book_barrter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86339101594-1iaju9nnajp74hdeb67j9infvqj082su.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv2EtXCSZN13YurKFYuI4lfsVqs6l_nBs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

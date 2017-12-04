@@ -56,7 +56,7 @@ public class App_start extends AppCompatActivity {
 
     //here i am making various methods for the whoich will be laod the relevent fragment, on clicking the relevant card.......
     //each card will load relevant fragment...
-    //jus  foe the sake of testing. . . . 
+    //jus  foe the sake of testing. . . .
 
     public void book_catalog(){
         Book_catalog books=  new Book_catalog();
