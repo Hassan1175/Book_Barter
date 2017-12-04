@@ -33,6 +33,7 @@ public class App_start extends AppCompatActivity {
         checkmethod();
 
     }
+    //here i will call all of the relevant methods. .. .  . .. . . .
     public void checkmethod(){
         if(get.equals(compare1) ){
             book_catalog();
