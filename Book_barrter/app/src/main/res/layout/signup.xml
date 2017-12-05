@@ -23,19 +23,7 @@
 
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/name"
 
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="22dp"
-
-
-        android:hint="Username"
-
-
-        android:inputType="text" />
 
 
     <EditText
@@ -44,17 +32,17 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
 
 
         android:hint="Email" />
     <EditText
-        android:id="@+id/pasword"
+        android:id="@+id/paswordd"
 
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
 
 
         android:hint="Password"
@@ -69,7 +57,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
 
 
         android:hint="Confirm Password"
@@ -88,15 +76,17 @@
         android:background="#00ffffff"
         android:text="SIGN UP"
         android:textSize="20dp"
+        android:textStyle="bold"
 
 
-        android:textStyle="bold" />
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingBottom="15dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
         >
         <ImageView
             android:layout_width="wrap_content"
