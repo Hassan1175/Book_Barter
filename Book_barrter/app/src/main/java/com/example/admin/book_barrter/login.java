@@ -32,7 +32,7 @@ public class login extends Fragment{
 
     Button signup1;
     FragmentManager fm;
-Button loginbtn;
+     Button loginbtn;
     ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     EditText ed1;
@@ -57,6 +57,8 @@ Button loginbtn;
             ed1 = (EditText) view.findViewById(R.id.username);
             ed2 = (EditText) view.findViewById(R.id.password);
         loginbtn = (Button) view.findViewById(R.id.login);
+
+        firebaseAuth = FirebaseAuth.getInstance();
         signup1 =(Button) view.findViewById(R.id.signupu);
         fm = getFragmentManager();
 
@@ -102,7 +104,7 @@ Button loginbtn;
         password = ed2.getText().toString().trim();
 
 
-
+/*
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"plz enter your name",Toast.LENGTH_SHORT).show();
             return;
@@ -114,8 +116,9 @@ Button loginbtn;
         }
 
 
-        progressDialog.setMessage("Authenticating. ..  .Wait. .");
-        progressDialog.show();
+*/
+//        progressDialog.setMessage("Authenticating. ..  .Wait. .");
+        //progressDialog.show();
 
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
@@ -127,12 +130,11 @@ Button loginbtn;
 
                         //     progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            Intent i = new Intent(getActivity(),welcome.class);
+//                            progressDialog.dismiss();
+                            Intent i = new Intent(getActivity(),Home_screen.class);
                             startActivity(i);
 
                             Toast.makeText(getActivity(),"Welcome welcomeee",Toast.LENGTH_SHORT).show();
-
 
                         }
                         else
