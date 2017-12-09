@@ -46,7 +46,7 @@
             <Spinner
                 android:id="@+id/book_category"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="80dp"
 
                 android:layout_height="wrap_content">
 
@@ -66,10 +66,8 @@
 
 
             android:hint="Arther Name">
-            
+
         </EditText>
-
-
 
 
         <LinearLayout
@@ -86,19 +84,19 @@
                 android:textSize="20dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"/>
-
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp" />
 
 
             <Button
                 android:id="@+id/browse_pic"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:text="Browse"
-                android:layout_height="wrap_content">
-
+                android:onClick="Browse"
+                android:text="Browse">
 
 
             </Button>
@@ -106,7 +104,7 @@
 
 
         <Button
-            android:id="@+id/registration"
+            android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -52,7 +52,7 @@ public class login extends Fragment{
 
 
         View view = inflater.inflate(R.layout.login,container,false);
-
+        progressDialog =  new ProgressDialog(getActivity());
         //cos here we are using fragments, so for it we will use view.findview
             ed1 = (EditText) view.findViewById(R.id.username);
             ed2 = (EditText) view.findViewById(R.id.password);
@@ -104,7 +104,7 @@ public class login extends Fragment{
         password = ed2.getText().toString().trim();
 
 
-/*
+
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"plz enter your name",Toast.LENGTH_SHORT).show();
             return;
@@ -116,9 +116,9 @@ public class login extends Fragment{
         }
 
 
-*/
-//        progressDialog.setMessage("Authenticating. ..  .Wait. .");
-        //progressDialog.show();
+
+       progressDialog.setMessage("Authenticating. ..  .Wait. .");
+        progressDialog.show();
 
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
@@ -130,7 +130,7 @@ public class login extends Fragment{
 
                         //     progressDialog.dismiss();
                         if (task.isSuccessful()) {
-//                            progressDialog.dismiss();
+                           progressDialog.dismiss();
                             Intent i = new Intent(getActivity(),Home_screen.class);
                             startActivity(i);
 
@@ -139,7 +139,7 @@ public class login extends Fragment{
                         }
                         else
                             Toast.makeText(getActivity(),"Sorry somthing went wrong, try again. . ",Toast.LENGTH_SHORT).show();
-
+                        progressDialog.dismiss();
                     }
                 });
 

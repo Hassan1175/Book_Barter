@@ -45,6 +45,8 @@ public class signup extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        progressDialog =  new ProgressDialog(getActivity());
+
 
 
          ed1 = (EditText) view.findViewById(R.id.email);
@@ -83,7 +85,7 @@ public class signup extends Fragment {
 
         Toast.makeText(getActivity(),email,Toast.LENGTH_SHORT).show();
         Toast.makeText(getActivity(),password,Toast.LENGTH_SHORT).show();
-/*
+
         if (TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"Please enter your Email",Toast.LENGTH_SHORT).show();
             return;
@@ -92,9 +94,9 @@ public class signup extends Fragment {
             Toast.makeText(getActivity(), "plz enter your Password", Toast.LENGTH_SHORT).show();
             return;
         }
-        */
-//       progressDialog.setMessage("User is Registering. .  ..");
-  //      progressDialog.show();
+
+       progressDialog.setMessage("User is Registering. .  ..");
+        progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -123,7 +125,6 @@ public class signup extends Fragment {
 
             }
         });
-
 
 
     }
