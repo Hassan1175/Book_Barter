@@ -7,14 +7,25 @@ package com.example.admin.book_barrter;
 public class uploading {
 
 
-   public String Muser ;
+   public String muser ;
     public String book_type;
     public String ather_name;
     public String url;
 
-    /*
-    public String getMuser() {
-        return Muser;
+    public uploading() {
+    }
+
+    public uploading(String muser, String book_type,String ather_name, String url) {
+        this.ather_name =  ather_name;
+        this.muser = muser;
+        this.book_type = book_type;
+        this.url = url;
+
+    }
+
+
+    public String getmuser() {
+        return muser;
     }
 
     public String getBook_type() {
@@ -28,20 +39,4 @@ public class uploading {
     public String getUrl() {
         return url;
     }
-
-*/
-    public uploading(String Muser, String book_type,String ather_name, String url) {
-        this.ather_name =  ather_name;
-        this.Muser = Muser;
-        this.book_type = book_type;
-        this.url = url;
-
-    }
-
-    public uploading() {
-    }
-
-
-
-
 }
