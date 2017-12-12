@@ -56,10 +56,12 @@ public class Book_upload extends Fragment {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
 
+    FirebaseUser profile;
+
 
 
     TextView user;
-    public static String user_profile = "helloword";
+    public static String user_profile ;
 
     public static String category;
     private EditText editText;
@@ -88,6 +90,12 @@ public class Book_upload extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //
         View view = inflater.inflate(R.layout.book_upload,container,false);
+
+
+
+
+
+
         progressDialog =  new ProgressDialog(getActivity());
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -102,6 +110,16 @@ public class Book_upload extends Fragment {
         browse = (Button) view.findViewById(R.id.browse_pic);
         upload = (Button) view.findViewById(R.id.upload);
         imageView = (ImageView)view.findViewById(R.id.image);
+
+
+     //   FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+            profile =firebaseAuth.getInstance().getCurrentUser();
+        user.setText("Welcome "+ profile.getEmail());
+
+           user_profile =  user.getText().toString();
+        //    user_profile =
+
+
 
 
 //  cos here i am using fragments for my application, so i will inherit findviewby id methid from view claass
@@ -158,11 +176,6 @@ public class Book_upload extends Fragment {
             }
         });
 
-      //  FirebaseUser profile =firebaseAuth.getCurrentUser();
-      //  user.setText("Welcome "+ profile.getEmail());
-
-      //   user_profile =  user.getText().toString();
-    //    user_profile =
 
         Log.i("hahaha","Before view");
 

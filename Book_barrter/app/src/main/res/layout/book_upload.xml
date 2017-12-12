@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
@@ -9,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/textView"
@@ -22,11 +24,9 @@
             android:textSize="30dp"
 
             android:textStyle="bold" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/useremail"
-            />
+
+
+
 
 
         <LinearLayout
@@ -35,7 +35,34 @@
             android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
+
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Owner ID"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_marginLeft="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/useremail"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -46,7 +73,7 @@
             <Spinner
                 android:id="@+id/book_category"
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="70dp"
 
                 android:layout_height="wrap_content">
 
@@ -59,24 +86,25 @@
         <EditText
             android:id="@+id/arther_name"
 
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
 
 
-            android:hint="Arther Name">
+            android:hint="Arther Name"
+            android:layout_weight="0.03">
 
         </EditText>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
 
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -85,22 +113,27 @@
 
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp" />
+                android:layout_width="80dp"
+                android:layout_height="90dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
 
             <Button
                 android:id="@+id/browse_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
                 android:onClick="Browse"
-                android:text="Browse">
+                android:text="Browse Pic"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="23dp"
+                android:layout_marginEnd="23dp">
 
 
             </Button>
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <Button
@@ -109,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
 
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="#00ffffff"
             android:text="Upload"
             android:textSize="20dp"
@@ -117,8 +150,6 @@
 
 
             />
-
-
 
 
     </LinearLayout>
