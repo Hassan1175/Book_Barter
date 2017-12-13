@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 
 public class Book_catalog extends Fragment {
-
+    FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
     DatabaseReference databaseReference;
     // Creating RecyclerView.
@@ -57,6 +58,7 @@ public class Book_catalog extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
+
 // Assign class to progress dialog.
         progressDialog = new ProgressDialog(getActivity());
 
@@ -78,12 +80,15 @@ public class Book_catalog extends Fragment {
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
                     uploading imageUploadInfo = postSnapshot.getValue(uploading.class);
+                    // imageUploadInfo.getmuser().toString();
 
-                    list.add(imageUploadInfo);
+                 //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
+                        list.add(imageUploadInfo);
+                   // }
                 }
-
                 // this is the object of the custom adopter class of the recycle view. . .
                 adapter = new RecyclerViewAdapter(getActivity(), list);
+
                 recyclerView.setAdapter(adapter);
 
                 // Hiding the progress dialog.

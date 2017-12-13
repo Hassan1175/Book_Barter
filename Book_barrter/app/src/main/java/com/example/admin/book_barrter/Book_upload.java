@@ -114,7 +114,7 @@ public class Book_upload extends Fragment {
 
      //   FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
             profile =firebaseAuth.getInstance().getCurrentUser();
-        user.setText("Welcome "+ profile.getEmail());
+        user.setText(profile.getEmail().trim());
 
            user_profile =  user.getText().toString();
         //    user_profile =
@@ -241,6 +241,7 @@ public void UPLOADED(){
                 String uploaded = databaseReference.push().getKey();
                 try{
                     databaseReference.child(uploaded).setValue(uploadiiinngg);
+
 //                    databaseReference.setValue(uploadiiinngg);
                 }
                 catch (Exception e){

@@ -2,13 +2,17 @@ package com.example.admin.book_barrter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -18,6 +22,15 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
+
+   FirebaseAuth firebaseAuth ;
+    FirebaseUser profile;
+
+
+
+    public   String test;
+    public   String test2;
+   // Book_upload bu;
 
     Context context;
     List<uploading> MainImageUploadInfoList;
@@ -32,10 +45,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
        // return null;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
 
+
+
+
+
+
+        TextView  tv = (TextView) view.findViewById(R.id.Muser);
+
+         test = tv.getText().toString().trim();
+        profile = firebaseAuth.getInstance().getCurrentUser();
+        test2 =  profile.getEmail().toString().trim();
+
+        Log.i("Tag",test + test2);
+
+
+
+
         ViewHolder viewHolder = new ViewHolder(view);
+
+
 
         return viewHolder;
 
@@ -47,14 +80,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         uploading UploadInfo = MainImageUploadInfoList.get(position);
 
-        holder.user_name.setText(UploadInfo.getmuser());
-        holder.book_type.setText(UploadInfo.getBook_type());
-        holder.arther_name.setText(UploadInfo.getAther_name());
 
 
-        //Loading image from Glide library.
-        Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
-    }
+
+
+       // Log.i("Tag",firebaseAuth.getInstance().getCurrentUser().getEmail().toString()+" "+UploadInfo.getmuser().toString());
+       // if(firebaseAuth.getInstance().getCurrentUser().getEmail().equals(UploadInfo.getmuser())){
+            holder.user_name.setText(UploadInfo.getmuser());
+            Log.i("Tag",holder.user_name.getText().toString());
+
+            holder.book_type.setText(UploadInfo.getBook_type());
+            holder.arther_name.setText(UploadInfo.getAther_name());
+            Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
+        //}
+
+        }
+
+
+
+            //Loading image from Glide library.
+
+//    }
 
     @Override
     public int getItemCount() {
