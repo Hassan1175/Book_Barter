@@ -55,10 +55,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
 
 
-
-
-
-
         TextView  tv = (TextView) view.findViewById(R.id.Muser);
 
          test = tv.getText().toString().trim();
@@ -96,18 +92,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(LOG,"Button clicked"+ UploadInfo.getId());
-                DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
-                dr.removeValue();
 
-                //  Toast.makeText(RecyclerViewAdapter.this,"Here i have deletd your user. . . ",Toast.LENGTH_LONG).show();
 
-            }
-        });
-        //}
+
+
 
         }
 
@@ -138,6 +126,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
             button = (Button) itemView.findViewById(R.id.newbutton);
+
+            button.setText("Borrow Me");
 
         }
     }

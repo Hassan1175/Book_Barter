@@ -102,7 +102,7 @@ public class Book_exchange extends Fragment {
 
 
                 }
-                adapter = new RecyclerViewAdapter(getActivity(), list);
+                adapter = new RecyclerViewAdopterForDeleting(getActivity(), list);
 
                 recyclerView.setAdapter(adapter);
 
@@ -126,39 +126,10 @@ public class Book_exchange extends Fragment {
 
 
 
-       // final uploading up = new uploading();
-       // Log.i("Tag",up.getId());
-
-//        frodeleting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(imageUploadInfo!=null)
-//                deleting(imageUploadInfo.getId());
-//            }
-//        });
-
-
-
-
 
         return view;
     }
 
 
 
-
-    public void deleting(String id){
-
-
-
-
-    DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(id);
-        dr.removeValue();
-
-        Toast.makeText(getActivity(),"Here i have deletd your user. . . ",Toast.LENGTH_LONG).show();
-
-
-
-
-    }
 }

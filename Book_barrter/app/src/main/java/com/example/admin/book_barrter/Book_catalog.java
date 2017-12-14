@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,8 @@ import java.util.List;
  */
 
 public class Book_catalog extends Fragment {
+    public Button borrow;
+
     FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
     DatabaseReference databaseReference;
@@ -47,6 +50,8 @@ public class Book_catalog extends Fragment {
 //        return super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.book_catalog,container,false);
+
+        //borrow = (Button) view.findViewById(R.id.newbutton);
 
 
         // Assign id to RecyclerView.
