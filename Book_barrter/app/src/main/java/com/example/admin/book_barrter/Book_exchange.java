@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +43,7 @@ public class Book_exchange extends Fragment {
     List<uploading> list = new ArrayList<>();
 
     Button frodeleting;
-
+    uploading imageUploadInfo;
 
 
 
@@ -52,8 +53,6 @@ public class Book_exchange extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //
         View view = inflater.inflate(R.layout.book_exchange,container,false);
-
-        frodeleting = (Button) view.findViewById(R.id.btn);
 
 
 
@@ -85,19 +84,23 @@ public class Book_exchange extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
-                    uploading imageUploadInfo = postSnapshot.getValue(uploading.class);
+                     imageUploadInfo = postSnapshot.getValue(uploading.class);
                     // imageUploadInfo.getmuser().toString();
 
 
-                    Log.i("Tag", imageUploadInfo.muser + "  " + imageUploadInfo.ather_name);
 
 //  Here I am jsut getting the user in the cardview and the current,y logged in user. After comparing their values, i am loading relevant card in the recycler view.. ..
 
+                    Log.i("Tag",  imageUploadInfo.getId());
+
+
                     if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
-
                         
                     }
+
+
+
                 }
                 adapter = new RecyclerViewAdapter(getActivity(), list);
 
@@ -106,6 +109,8 @@ public class Book_exchange extends Fragment {
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
 
+
+
             }
 
             @Override
@@ -113,13 +118,47 @@ public class Book_exchange extends Fragment {
 
                 progressDialog.dismiss();
             }
+
+
+
         });
 
+
+
+
+       // final uploading up = new uploading();
+       // Log.i("Tag",up.getId());
+
+//        frodeleting.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(imageUploadInfo!=null)
+//                deleting(imageUploadInfo.getId());
+//            }
+//        });
 
 
 
 
 
         return view;
+    }
+
+
+
+
+    public void deleting(String id){
+
+
+
+
+    DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(id);
+        dr.removeValue();
+
+        Toast.makeText(getActivity(),"Here i have deletd your user. . . ",Toast.LENGTH_LONG).show();
+
+
+
+
     }
 }

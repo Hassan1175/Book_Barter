@@ -7,6 +7,7 @@ package com.example.admin.book_barrter;
 public class uploading {
 
 
+    public String id;
    public String muser ;
     public String book_type;
     public String ather_name;
@@ -15,11 +16,12 @@ public class uploading {
     public uploading() {
     }
 
-    public uploading(String muser, String book_type,String ather_name, String url) {
+    public uploading(String muser, String book_type,String ather_name,String id, String url) {
         this.ather_name =  ather_name;
         this.muser = muser;
         this.book_type = book_type;
         this.url = url;
+        this.id = id;
 
     }
 
@@ -38,5 +40,9 @@ public class uploading {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getId() {
+        return id;
     }
 }

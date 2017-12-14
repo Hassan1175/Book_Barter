@@ -62,6 +62,8 @@ public class Book_upload extends Fragment {
 
     TextView user;
     public static String user_profile ;
+  public  String id;
+
 
     public static String category;
     private EditText editText;
@@ -177,7 +179,7 @@ public class Book_upload extends Fragment {
         });
 
 
-        Log.i("hahaha","Before view");
+       // Log.i("hahaha","Before view");
 
         return view;
     }
@@ -190,7 +192,7 @@ public class Book_upload extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("hahaha","in calling start activity");
+      //  Log.i("hahaha","in calling start activity");
 
         if(requestCode == requestCode && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null){
 
@@ -211,7 +213,7 @@ public class Book_upload extends Fragment {
     public  String getImageExt(Uri uri){
         ContentResolver contentResolver = getActivity().getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        Log.i("hahaha","Sting");
+       // Log.i("hahaha","Sting");
 
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
@@ -238,7 +240,7 @@ public void UPLOADED(){
                 //save image info to firebase database
 
                 String uploaded = databaseReference.push().getKey();
-                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString() , taskSnapshot.getDownloadUrl().toString());
+                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString(),uploaded , taskSnapshot.getDownloadUrl().toString());
 
 
                 try{

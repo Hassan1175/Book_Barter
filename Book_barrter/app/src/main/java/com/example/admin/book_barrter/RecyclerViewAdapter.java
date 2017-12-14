@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -23,7 +26,8 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
 
-   FirebaseAuth firebaseAuth ;
+    private static final String LOG = "TESTLOG";
+    FirebaseAuth firebaseAuth ;
     FirebaseUser profile;
 
 
@@ -61,7 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         profile = firebaseAuth.getInstance().getCurrentUser();
         test2 =  profile.getEmail().toString().trim();
 
-        Log.i("Tag",test + test2);
+     //   Log.i("Tag",test + test2);
 
 
 
@@ -77,8 +81,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        uploading UploadInfo = MainImageUploadInfoList.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+       final  uploading UploadInfo = MainImageUploadInfoList.get(position);
 
 
 
@@ -87,11 +91,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
        // Log.i("Tag",firebaseAuth.getInstance().getCurrentUser().getEmail().toString()+" "+UploadInfo.getmuser().toString());
        // if(firebaseAuth.getInstance().getCurrentUser().getEmail().equals(UploadInfo.getmuser())){
             holder.user_name.setText(UploadInfo.getmuser());
-            Log.i("Tag",holder.user_name.getText().toString());
+         //   Log.i("Tag",holder.user_name.getText().toString());
 
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG,"Button clicked"+ UploadInfo.getId());
+                DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
+                dr.removeValue();
+
+                //  Toast.makeText(RecyclerViewAdapter.this,"Here i have deletd your user. . . ",Toast.LENGTH_LONG).show();
+
+            }
+        });
         //}
 
         }
@@ -113,6 +128,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView book_type;
         public TextView arther_name;
         public ImageView imageView;
+        public Button button;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -121,7 +137,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             book_type = (TextView) itemView.findViewById(R.id.type);
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
-
+            button = (Button) itemView.findViewById(R.id.newbutton);
 
         }
     }
