@@ -236,9 +236,11 @@ public void UPLOADED(){
                 Toast.makeText(getActivity()," Image Upoaded.  .",Toast.LENGTH_LONG).show();
 
                 //save image info to firebase database
-                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString() , taskSnapshot.getDownloadUrl().toString());
 
                 String uploaded = databaseReference.push().getKey();
+                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString() , taskSnapshot.getDownloadUrl().toString());
+
+
                 try{
                     databaseReference.child(uploaded).setValue(uploadiiinngg);
 

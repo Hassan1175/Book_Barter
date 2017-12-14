@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +41,8 @@ public class Book_exchange extends Fragment {
     // Creating List of Model class, which is named as uploading.. . .
     List<uploading> list = new ArrayList<>();
 
+    Button frodeleting;
+
 
 
 
@@ -48,6 +52,13 @@ public class Book_exchange extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //
         View view = inflater.inflate(R.layout.book_exchange,container,false);
+
+        frodeleting = (Button) view.findViewById(R.id.btn);
+
+
+
+
+
 
         recyclerView = (RecyclerView)view.findViewById(R.id.MyrecyclerView);
 
@@ -78,10 +89,14 @@ public class Book_exchange extends Fragment {
                     // imageUploadInfo.getmuser().toString();
 
 
-//  Here I am jsut getting the user in the cardview and the current,y logged in user. After comparing their values, i am loading relevant card in the recycler view.. ..                    
+                    Log.i("Tag", imageUploadInfo.muser + "  " + imageUploadInfo.ather_name);
+
+//  Here I am jsut getting the user in the cardview and the current,y logged in user. After comparing their values, i am loading relevant card in the recycler view.. ..
 
                     if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
+
+                        
                     }
                 }
                 adapter = new RecyclerViewAdapter(getActivity(), list);

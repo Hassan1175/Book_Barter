@@ -24,5 +24,12 @@
     <color name="darkyellow">#FFA000</color>
     <color name="pink">#ff4081</color>
 
-    <color name="back">#fcfcfc</color>
+    <color name="primarydark">#292b3d</color>
+
+
+
+
+    <color name="greylight">#fafafa</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bcce6</color>
 </resources>
