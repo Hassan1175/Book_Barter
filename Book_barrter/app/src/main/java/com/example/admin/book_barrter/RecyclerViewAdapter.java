@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 public  String s6;
 
-    private static final String LOG = "TESTLOG";
+   // private static final String LOG = "TESTLOG";
     FirebaseAuth firebaseAuth ;
     FirebaseUser profile;
 
@@ -100,6 +100,8 @@ public  String s6;
             holder.user_name.setText(UploadInfo.getmuser());
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
+
+
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
 
 
@@ -182,14 +184,8 @@ public  String s6;
         databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathh);
 
 
-
-
-
-
         String key = databaseReference.push().getKey();
         BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
-
-
 
         try{
             databaseReference.child(key).setValue(requesting);

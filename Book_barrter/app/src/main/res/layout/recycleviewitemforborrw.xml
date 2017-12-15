@@ -60,7 +60,7 @@
                 android:layout_alignLeft="@+id/borrow_book_photo"
                 android:layout_alignStart="@+id/borrow_book_photo"
                 android:layout_below="@+id/borrow_book_photo"
-                android:text="Owner" />
+                android:text="Requested by" />
 
             <Button
                 android:id="@+id/confirmation"
