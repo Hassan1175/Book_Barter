@@ -1,5 +1,6 @@
 package com.example.admin.book_barrter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -25,6 +27,21 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
+
+   public final String Database_pathh = "borrow";
+
+
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
+
+    public String s1;
+    public String s2;
+    public String s3;
+    public String s4;
+
+    public String s5;
+
+public  String s6;
 
     private static final String LOG = "TESTLOG";
     FirebaseAuth firebaseAuth ;
@@ -80,15 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, final int position) {
        final  uploading UploadInfo = MainImageUploadInfoList.get(position);
 
-
-
-
-
-       // Log.i("Tag",firebaseAuth.getInstance().getCurrentUser().getEmail().toString()+" "+UploadInfo.getmuser().toString());
-       // if(firebaseAuth.getInstance().getCurrentUser().getEmail().equals(UploadInfo.getmuser())){
             holder.user_name.setText(UploadInfo.getmuser());
-         //   Log.i("Tag",holder.user_name.getText().toString());
-
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
@@ -96,14 +105,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
 
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                s1  =   firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+
+
+                s2  =                UploadInfo.getmuser().toString();
+
+
+
+                s3  = UploadInfo.getBook_type().toString();
+
+                s4  =UploadInfo.getAther_name().toString();
+
+
+
+
+                s5 = UploadInfo.getUrl().toString();
+
+
+
+
+
+                Log.i("Tag", s1 + "       "+"       "+s2 + "       "+s3+ "      "+s4+"       "+s5  );
+
+
+                forborrowthebooks();
+
+
+
+
+
+            }
+        });
+
 
         }
 
-
-
-            //Loading image from Glide library.
-
-//    }
 
     @Override
     public int getItemCount() {
@@ -131,4 +172,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
     }
+
+
+    public void forborrowthebooks(){
+        final ProgressDialog dialog = new ProgressDialog(context);
+        dialog.setTitle("Sending borrowing request. . .. . .");
+        dialog.show();
+
+        databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathh);
+
+
+
+
+
+
+        String key = databaseReference.push().getKey();
+        BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
+
+
+
+        try{
+            databaseReference.child(key).setValue(requesting);
+
+//                    databaseReference.setValue(uploadiiinngg);
+        }
+        catch (Exception e){
+            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        dialog.dismiss();
+        Toast.makeText(context,"Request has been sent to the owner of the book.  . .. ",Toast.LENGTH_LONG).show();
+    }
+
+
+
+
+
+
+
+
 }
