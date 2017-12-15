@@ -98,6 +98,9 @@ public class Book_upload extends Fragment {
 
 
 
+
+
+
         progressDialog =  new ProgressDialog(getActivity());
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -159,8 +162,7 @@ public class Book_upload extends Fragment {
         browse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //the method has been made below. . .
-           //  browsing_pic();
+
 
                 Intent intent  = new Intent();
                 intent.setType("image/*");
