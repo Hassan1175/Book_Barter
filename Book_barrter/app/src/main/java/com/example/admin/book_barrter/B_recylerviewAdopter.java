@@ -1,6 +1,7 @@
 package com.example.admin.book_barrter;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.preference.DialogPreference;
@@ -30,8 +31,17 @@ import java.util.List;
 
 public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdopter.ViewHolder> {
 
+    String response;
+    String ather;
+    String book_category;
+    String current_user;
+    String requesting_user;
+    String PICURL;
 
+    private DatabaseReference databaseReference;
 
+    public final String Database_pathhh = "response_data";
+    public TextView tv_response;
 
 
     FirebaseAuth firebaseAuth ;
@@ -98,6 +108,26 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                           @Override
                           public void onClick(DialogInterface dialog, int which) {
 
+//                              tv_response.setText("YES");
+
+
+
+                              response = "YES: Book is available for you.";
+
+                              ather = borrowinfo.getName_ather().toString();
+
+                              book_category = borrowinfo.getBook_sort();
+                              current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+                              requesting_user = borrowinfo.getrequesting_user().toString();
+                              PICURL  =  borrowinfo.getUrlofpic().toString();
+
+
+                              Log.i("Tag", response + "       "+"       "+ather + "       "+book_category+ "   "+current_user+"       "+PICURL  );
+
+
+                              responseback();
+
+
 
 
                               Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
@@ -107,6 +137,22 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
                           @Override
                           public void onClick(DialogInterface dialog, int which) {
+
+                              response = "Sorry: I can't share that book.";
+
+                              ather = borrowinfo.getName_ather().toString();
+
+                              book_category = borrowinfo.getBook_sort();
+                              current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+                              requesting_user = borrowinfo.getrequesting_user().toString();
+                              PICURL  =  borrowinfo.getUrlofpic().toString();
+
+
+                              Log.i("Tag", response + "       "+"       "+ather + "       "+book_category+ "   "+current_user+"       "+PICURL  );
+
+
+                              responseback();
+
                               Toast.makeText(context,"Thanks for your response. . . .",Toast.LENGTH_LONG).show();
                           }
                       });
@@ -122,10 +168,6 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
     @Override
     public int getItemCount() {
-
-
-
-
 
 
         return borrowiteminfo.size();
@@ -156,6 +198,43 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
     }
 
 
+     public void    responseback(){
+
+         final ProgressDialog dialog = new ProgressDialog(context);
+         dialog.setTitle("Sending borrowing request. . .. . .");
+         dialog.show();
+
+         databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathhh);
+
+
+         String key = databaseReference.push().getKey();
+
+         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL);
+        // final ResponseModel responseInfo = new ResponseModel(response,book_category,current_user,requesting_user,PICURL);
+
+
+         try{
+
+
+             // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
+
+             databaseReference.child(key).setValue(responseModel);
+
+             //                 databaseReference.setValue(uploadiiinngg);
+         }
+         catch (Exception e){
+             Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+         }
+         dialog.dismiss();
+         Toast.makeText(context,"Response has been sent to the requested user..  . .. ",Toast.LENGTH_LONG).show();
+
+
+     }
 
 
 }
+
+
+
+
+
