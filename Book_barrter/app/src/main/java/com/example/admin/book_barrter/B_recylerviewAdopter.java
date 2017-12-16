@@ -1,6 +1,9 @@
 package com.example.admin.book_barrter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,14 +32,10 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
 
 
+
+
     FirebaseAuth firebaseAuth ;
     FirebaseUser profile;
-
-
-
-   // public   String test;
-    //public   String test2;
-    // Book_upload bu;
 
     Context context;
     List<BorrowModel> borrowiteminfo;
@@ -56,13 +56,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleviewitemforborrw, parent, false);
 
 
-     //   TextView tv = (TextView) view.findViewById(R.id.Muser);
 
-//        test = tv.getText().toString().trim();
-    //    profile = firebaseAuth.getInstance().getCurrentUser();
-      //  test2 =  profile.getEmail().toString().trim();
-
-        //   Log.i("Tag",test + test2);
 
 
         B_recylerviewAdopter.ViewHolder viewHolder  = new B_recylerviewAdopter.ViewHolder(view);
@@ -78,7 +72,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
     }
 
     @Override
-    public void onBindViewHolder(B_recylerviewAdopter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final B_recylerviewAdopter.ViewHolder holder, final int position) {
 
 
 
@@ -86,23 +80,54 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
       final  BorrowModel borrowinfo = borrowiteminfo.get(position);
 
 
-        holder.user_name.setText(borrowinfo.getCurrent_user());
+        holder.user_name.setText(borrowinfo.getrequesting_user());
         holder.book_type.setText(borrowinfo.getBook_sort());
         holder.arther_name.setText(borrowinfo.getName_ather());
         Glide.with(context).load(borrowinfo.getUrlofpic()).into(holder.imageView);
 
-
+// that is  the button for the  confirmaion of the bok which has been requested from a particular user . ..
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // here i will open dialogue box for getting confirmation of accepting and deleting.....
-                //
+
+                AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
+// altbox.setMessage("Hy"+ FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString()+ System.getProperty("line.separator")+ "A book named  as "+borrowinfo.book_owner+" "+"has been requested by "+borrowinfo.getrequesting_user()+" "+"what is your response ? " ).setCancelable(true)
+              altbox.setMessage("what is your response ? " ).setCancelable(true)
+                      .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                          @Override
+                          public void onClick(DialogInterface dialog, int which) {
+
+
+
+                              Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
+                          }
+                      })
+                      .setNegativeButton("NO",new DialogInterface.OnClickListener(){
+
+                          @Override
+                          public void onClick(DialogInterface dialog, int which) {
+                              Toast.makeText(context,"Thanks for your response. . . .",Toast.LENGTH_LONG).show();
+                          }
+                      });
+                AlertDialog alert = altbox.create();
+                alert.setTitle("Confirmation Response");
+                alert.show();
+
+
+
                 }
         });
     }
 
     @Override
     public int getItemCount() {
+
+
+
+
+
+
         return borrowiteminfo.size();
     }
 

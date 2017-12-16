@@ -7,7 +7,7 @@ package com.example.admin.book_barrter;
 public class BorrowModel {
 
     public String id;
-    public String current_user;
+    public String requesting_user;
     public String book_owner ;
     public String book_sort;
     public String name_ather;
@@ -17,8 +17,8 @@ public class BorrowModel {
         return id;
     }
 
-    public String getCurrent_user() {
-        return current_user;
+    public String getrequesting_user() {
+        return requesting_user;
     }
 
     public String getBook_owner() {
@@ -38,8 +38,8 @@ public class BorrowModel {
     }
 
 
-    public BorrowModel(String current_user, String book_owner, String book_sort, String name_ather, String urlofpic,String id) {
-        this.current_user = current_user;
+    public BorrowModel(String requesting_user, String book_owner, String book_sort, String name_ather, String urlofpic,String id) {
+        this.requesting_user = requesting_user;
         this.book_owner = book_owner;
         this.book_sort = book_sort;
         this.name_ather = name_ather;
@@ -47,9 +47,8 @@ public class BorrowModel {
         this.id =id;
     }
 
+    // that is the default constructor which is neccessary to be made in order to display the stuff in the recycler view. .
+
     public BorrowModel(){
-
-
-
     }
 }

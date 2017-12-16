@@ -79,8 +79,15 @@ public class Mange_request extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     borrowModel =  postSnapshot.getValue(BorrowModel.class);
 
+// here i have to put the check that, the requests of currently logged in user should be displayed from the common
+// databse of the  boorw node of borrowing requests database. .     . ..
 
-                    list.add(borrowModel);
+                    if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
+
+
+
+                        list.add(borrowModel);
+                    }
                 }
 
                 adapter =  new B_recylerviewAdopter(getActivity(),list);
@@ -94,6 +101,8 @@ public class Mange_request extends Fragment {
 
             }
         });
+
+
 
 
         return view;

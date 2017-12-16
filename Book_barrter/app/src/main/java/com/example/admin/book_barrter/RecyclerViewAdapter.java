@@ -15,10 +15,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -115,7 +122,7 @@ public  String s6;
                 s1  =   firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
 
 
-                s2  =                UploadInfo.getmuser().toString();
+                s2  =    UploadInfo.getmuser().toString();
 
 
 
@@ -150,6 +157,11 @@ public  String s6;
 
     @Override
     public int getItemCount() {
+
+    //   Collections.frequency()
+
+
+
         return MainImageUploadInfoList.size();
     }
 
@@ -185,18 +197,128 @@ public  String s6;
 
 
         String key = databaseReference.push().getKey();
-        BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
+        final BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
+
+
+
+
+
+
 
         try{
+
+
+           // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
+
             databaseReference.child(key).setValue(requesting);
 
-//                    databaseReference.setValue(uploadiiinngg);
-        }
-        catch (Exception e){
-            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-        }
+
+
+  //                 databaseReference.setValue(uploadiiinngg);
+       }
+      catch (Exception e){
+           Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
+     }
         dialog.dismiss();
         Toast.makeText(context,"Request has been sent to the owner of the book.  . .. ",Toast.LENGTH_LONG).show();
+
+
+
+
+
+        //testing. .
+
+/*
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            ArrayList<BorrowModel> details = new ArrayList<>();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot ds = dataSnapshot.child("borrow");
+
+
+                Iterable<DataSnapshot> Children = ds.getChildren();
+
+                for (DataSnapshot tt : Children){
+                    BorrowModel d = tt.getValue(BorrowModel.class);
+                    d.getrequesting_user();
+                    details.add(d);
+
+                    int s =details.size();
+
+                    Toast.makeText(context,"RThe legnth kf  my array list is "+ s,Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+//till here. . .
+
+
+*/
+
+
+
+
+
+
+        //here is just for the sake of the testing of the code..  .
+
+
+
+
+        /*
+
+// that code is just example of the codeeee
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String key = databaseReference.push().getKey();
+                final BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
+                databaseReference.child(key).setValue(requesting);
+             //   String number = dataSnapshot.getKey();
+          //      requesting.getrequesting_user();
+
+            //    String number2 = dataSnapshot.getChildrenCount()+"";
+                Toast.makeText(context,"i am going to display numbers of child node. . . .", Toast.LENGTH_LONG).show();
+
+            //    Toast.makeText(context,"Haan bhi..."+ requesting.getrequesting_user()+" "+number2,Toast.LENGTH_LONG).show();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //till here. . .
+
+*/
+
     }
 
 
