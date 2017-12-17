@@ -83,9 +83,6 @@ public class Mange_request extends Fragment {
 // databse of the  boorw node of borrowing requests database. .     . ..
 
                     if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
-
-
-
                         list.add(borrowModel);
                     }
                 }

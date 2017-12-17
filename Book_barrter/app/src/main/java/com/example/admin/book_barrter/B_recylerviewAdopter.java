@@ -39,7 +39,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
     String PICURL;
 
     private DatabaseReference databaseReference;
-
+//that path is to uplaod data on new child node named as response_data
     public final String Database_pathhh = "response_data";
     public TextView tv_response;
 
@@ -64,8 +64,6 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
         // return null;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleviewitemforborrw, parent, false);
-
-
 
 
 
@@ -196,6 +194,10 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
         }
     }
+
+
+
+    // here i am sending  response back to the  the user who requested a book from owner side. . ..
 
 
      public void    responseback(){

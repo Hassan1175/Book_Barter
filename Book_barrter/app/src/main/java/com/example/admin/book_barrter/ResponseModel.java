@@ -11,22 +11,22 @@ public class ResponseModel {
     String book_category;
     String current_user;
     String requesting_user;
-    String PICURL;
+    String picurl;
 
 
-    public ResponseModel(String response, String ather, String book_category, String current_user, String requesting_user, String PICURL) {
+    public ResponseModel(String response, String ather, String book_category, String current_user, String requesting_user, String picurl) {
         this.response = response;
         this.ather = ather;
         this.book_category = book_category;
         this.current_user = current_user;
         this.requesting_user = requesting_user;
-        this.PICURL = PICURL;
+        this.picurl = picurl;
     }
 
     public ResponseModel(){
 
     }
-/*
+
     public String getResponse() {
         return response;
     }
@@ -43,13 +43,11 @@ public class ResponseModel {
         return current_user;
     }
 
-    public String getRequesting_user() {
+   public String getRequesting_user() {
         return requesting_user;
     }
 
-    public String getPICURL() {
-        return PICURL;
+    public String getPicurl() {
+        return picurl;
     }
-
-    */
 }

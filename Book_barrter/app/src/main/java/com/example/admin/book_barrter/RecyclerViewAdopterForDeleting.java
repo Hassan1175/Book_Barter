@@ -81,9 +81,6 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
         final  uploading UploadInfo = MainImageUploadInfoList.get(position);
 
 
-
-
-
         // Log.i("Tag",firebaseAuth.getInstance().getCurrentUser().getEmail().toString()+" "+UploadInfo.getmuser().toString());
         // if(firebaseAuth.getInstance().getCurrentUser().getEmail().equals(UploadInfo.getmuser())){
         holder.user_name.setText(UploadInfo.getmuser());
