@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.book_barrter">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +24,8 @@
             android:label="@string/title_activity_main_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Home_screen" />
-        <activity android:name=".App_start"></activity>
+        <activity android:name=".App_start" />
+        <activity android:name=".Profile_data"></activity>
     </application>
 
 </manifest>

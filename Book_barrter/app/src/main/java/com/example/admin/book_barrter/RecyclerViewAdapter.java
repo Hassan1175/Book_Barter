@@ -107,6 +107,7 @@ public  String s6;
             holder.user_name.setText(UploadInfo.getmuser());
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
+        holder.DisplayDateTime.setText(UploadInfo.getDate());
 
 
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
@@ -171,6 +172,7 @@ public  String s6;
         public TextView book_type;
         public TextView arther_name;
         public ImageView imageView;
+        TextView DisplayDateTime;
         public Button button;
 
         public ViewHolder(View itemView) {
@@ -180,7 +182,10 @@ public  String s6;
             book_type = (TextView) itemView.findViewById(R.id.type);
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
+            DisplayDateTime = (TextView)itemView.findViewById(R.id.Date);
+
             button = (Button) itemView.findViewById(R.id.newbutton);
+
 
             button.setText("Borrow Me");
 

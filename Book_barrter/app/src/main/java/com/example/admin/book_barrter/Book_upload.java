@@ -38,12 +38,23 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by ADMIN on 18/11/2017.
  */
 
 public class Book_upload extends Fragment {
+
+    Calendar calander;
+    SimpleDateFormat simpledateformat;
+    static String Date;
+
+
+
+
+
      Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
 
@@ -62,6 +73,7 @@ public class Book_upload extends Fragment {
 
     TextView user;
     public static String user_profile ;
+    public static String display_date ;
   public  String id;
 
 
@@ -117,12 +129,19 @@ public class Book_upload extends Fragment {
         imageView = (ImageView)view.findViewById(R.id.image);
 
 
+      //  Date = simpledateformat.format(calander.getTime());
+
+
      //   FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
             profile =firebaseAuth.getInstance().getCurrentUser();
         user.setText(profile.getEmail().trim());
 
            user_profile =  user.getText().toString();
         //    user_profile =
+
+       // DisplayDateTime.setText(Date);
+
+      //  display_date =   DisplayDateTime.getText().toString();
 
 
 
@@ -223,6 +242,8 @@ public class Book_upload extends Fragment {
 
 public void UPLOADED(){
 
+    //the method to get date and time
+  datetime();
     if(imageuri!=null){
         final ProgressDialog dialog = new ProgressDialog(getActivity());
         dialog.setTitle("Uploading Image.. .");
@@ -242,7 +263,7 @@ public void UPLOADED(){
                 //save image info to firebase database
 
                 String uploaded = databaseReference.push().getKey();
-                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString(),uploaded , taskSnapshot.getDownloadUrl().toString());
+                uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString(),uploaded , taskSnapshot.getDownloadUrl().toString(),Date);
 
 
                 try{
@@ -279,6 +300,17 @@ public void UPLOADED(){
 
 }
 
+
+public void datetime(){
+
+    calander = Calendar.getInstance();
+    simpledateformat = new SimpleDateFormat("dd-MM-yyyy / HH:mm:ss");
+
+    Date = simpledateformat.format(calander.getTime());
+    Date = simpledateformat.format(calander.getTime());
+
+
+}
 
 
 }
