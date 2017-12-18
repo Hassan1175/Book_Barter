@@ -107,65 +107,39 @@ public  String s6;
             holder.user_name.setText(UploadInfo.getmuser());
             holder.book_type.setText(UploadInfo.getBook_type());
             holder.arther_name.setText(UploadInfo.getAther_name());
-        holder.DisplayDateTime.setText(UploadInfo.getDate());
-
+            holder.DisplayDateTime.setText(UploadInfo.getDate());
 
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
-
-
-
-
+//that button will jsut upload the data on the server for the requested book
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 s1  =   firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-
-
                 s2  =    UploadInfo.getmuser().toString();
-
-
-
                 s3  = UploadInfo.getBook_type().toString();
-
                 s4  =UploadInfo.getAther_name().toString();
-
-
-
-
                 s5 = UploadInfo.getUrl().toString();
-
-
-
-
-
-                Log.i("Tag", s1 + "       "+"       "+s2 + "       "+s3+ "      "+s4+"       "+s5  );
-
-
                 forborrowthebooks();
-
-
-
-
-
             }
         });
 
+        holder.owner_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Hy wait i will show u user info",Toast.LENGTH_LONG).show();
+            }
+        });
 
         }
 
 
+
+
+
     @Override
     public int getItemCount() {
-
-    //   Collections.frequency()
-
-
-
         return MainImageUploadInfoList.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView user_name;
@@ -175,6 +149,8 @@ public  String s6;
         TextView DisplayDateTime;
         public Button button;
 
+        public Button owner_data;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -182,11 +158,12 @@ public  String s6;
             book_type = (TextView) itemView.findViewById(R.id.type);
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
+            owner_data = (Button) itemView.findViewById(R.id.owner_info);
+
             DisplayDateTime = (TextView)itemView.findViewById(R.id.Date);
 
+
             button = (Button) itemView.findViewById(R.id.newbutton);
-
-
             button.setText("Borrow Me");
 
         }
@@ -199,41 +176,18 @@ public  String s6;
         dialog.show();
 
         databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathh);
-
-
         String key = databaseReference.push().getKey();
         final BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
-
-
-
-
-
-
-
         try{
-
-
-           // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
-
+            // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
             databaseReference.child(key).setValue(requesting);
-
-
-
-  //                 databaseReference.setValue(uploadiiinngg);
+            //                 databaseReference.setValue(uploadiiinngg);
        }
       catch (Exception e){
            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
      }
-        dialog.dismiss();
+     dialog.dismiss();
         Toast.makeText(context,"Request has been sent to the owner of the book.  . .. ",Toast.LENGTH_LONG).show();
-
     }
-
-
-
-
-
-
-
 
 }

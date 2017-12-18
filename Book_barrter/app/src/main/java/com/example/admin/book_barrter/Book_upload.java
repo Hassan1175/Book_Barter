@@ -87,16 +87,11 @@ public class Book_upload extends Fragment {
     Button upload;
     ProgressDialog progressDialog;
 
-
     public static final String Storage_path = "image/";
 
     public static final String Database_path = "image";
 
     public static final int request_code = 1234;
-
-
-
-
 
 
     @Nullable
@@ -105,22 +100,10 @@ public class Book_upload extends Fragment {
         //
         View view = inflater.inflate(R.layout.book_upload,container,false);
 
-
-
-
-
-
-
-
-
         progressDialog =  new ProgressDialog(getActivity());
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference =  FirebaseDatabase.getInstance().getReference(Database_path);
-
-
-
-        //
         user= (TextView) view.findViewById(R.id.useremail);
         editText = (EditText) view.findViewById(R.id.arther_name);
 //String which has category, we have decalred above
