@@ -186,9 +186,9 @@ public class Profile extends Fragment {
 
     public void   UPLOADED(){
 
-        if(imageuri!=null){
+      //  if(imageuri!=null){
             final ProgressDialog dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Uploading Data.. .");
+            dialog.setTitle("Updating Profile");
             dialog.show();
 
             //get the storgae reference
@@ -236,9 +236,9 @@ public class Profile extends Fragment {
                 }
             });
 
-        }else {
-            Toast.makeText(getActivity(),"Please Select Image",Toast.LENGTH_LONG).show();
-        }
+       // }else {
+          //  Toast.makeText(getActivity(),"Please Select Image",Toast.LENGTH_LONG).show();
+    //    }
 
 
 

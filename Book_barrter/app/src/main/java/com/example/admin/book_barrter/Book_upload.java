@@ -156,11 +156,6 @@ public class Book_upload extends Fragment {
         });
 
 
-
-
-
-
-
         browse.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -174,25 +169,14 @@ public class Book_upload extends Fragment {
             }
         });
 
-
         upload.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                UPLOADED();
             }
         });
-
-
-       // Log.i("hahaha","Before view");
-
         return view;
     }
-
-
-
-
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -204,7 +188,6 @@ public class Book_upload extends Fragment {
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageuri);
                 imageView.setImageBitmap(bm);
-
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -247,8 +230,6 @@ public void UPLOADED(){
 
                 String uploaded = databaseReference.push().getKey();
                 uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString(),uploaded , taskSnapshot.getDownloadUrl().toString(),Date);
-
-
                 try{
                     databaseReference.child(uploaded).setValue(uploadiiinngg);
 

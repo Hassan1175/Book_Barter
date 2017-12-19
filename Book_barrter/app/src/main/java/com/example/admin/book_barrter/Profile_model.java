@@ -24,4 +24,24 @@ public class Profile_model {
     public Profile_model(){
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getContactnum() {
+        return contactnum;
+    }
+
+    public String getColg() {
+        return colg;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUrlofdp() {
+        return urlofdp;
+    }
 }

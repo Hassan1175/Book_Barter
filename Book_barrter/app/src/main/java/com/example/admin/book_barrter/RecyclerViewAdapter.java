@@ -1,5 +1,6 @@
 package com.example.admin.book_barrter;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +36,21 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
 
+    TextView tv;
+
 
    public final String Database_pathh = "borrow";
-
-
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
+    Profile_model pm;
+//that is the reference for the profile picture  . . .  ..
+    private DatabaseReference databaseReferenceforprofile;
+
+    private DatabaseReference myprofile;
+
+    public static String clicked_owner_info;
+    public static String owner;
+
 
     public String s1;
     public String s2;
@@ -53,9 +64,6 @@ public  String s6;
    // private static final String LOG = "TESTLOG";
     FirebaseAuth firebaseAuth ;
     FirebaseUser profile;
-
-
-
     public   String test;
     public   String test2;
    // Book_upload bu;
@@ -74,29 +82,14 @@ public  String s6;
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-       // return null;
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
-
-
         TextView  tv = (TextView) view.findViewById(R.id.Muser);
 
          test = tv.getText().toString().trim();
         profile = firebaseAuth.getInstance().getCurrentUser();
         test2 =  profile.getEmail().toString().trim();
-
-     //   Log.i("Tag",test + test2);
-
-
-
-
         ViewHolder viewHolder = new ViewHolder(view);
-
-
-
         return viewHolder;
-
-
 
     }
 
@@ -110,7 +103,10 @@ public  String s6;
             holder.DisplayDateTime.setText(UploadInfo.getDate());
 
             Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
-//that button will jsut upload the data on the server for the requested book
+
+
+
+          //that button will jsut upload the data on the server for the requested book
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,18 +119,83 @@ public  String s6;
             }
         });
 
+
+        // that  is button to show the information about the user in the owner info button
         holder.owner_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"Hy wait i will show u user info",Toast.LENGTH_LONG).show();
+
+
+                databaseReferenceforprofile = FirebaseDatabase.getInstance().getReference("image");
+                databaseReferenceforprofile.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                           // uploading UploadInfo = postSnapshot.getValue(uploading.class);
+                            uploading imageUploadInfo = MainImageUploadInfoList.get(position);
+
+                            clicked_owner_info =   imageUploadInfo.getmuser();
+
+                            owner =  clicked_owner_info.replace(".","_");
+
+                        }
+ // in above data change method, i made datachange method to get the email of the owner of book, then below i am makng again
+  // database reference to get the data of the got email address... . .
+
+                        myprofile = FirebaseDatabase.getInstance().getReference("Profile_Data").child(owner);
+                        myprofile.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                //   for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+
+                                pm = dataSnapshot.getValue(Profile_model.class);
+                                // imageUploadInfo.getmuser().toString();
+
+                                //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
+                                pm.getContactnum();
+                                pm.getColg();
+                                pm.getName();
+
+                                Log.i("Tag",pm.getContactnum()+"  "+pm.getName()+"  "+pm.getColg());
+
+
+                           //   LayoutInflater inflater = LayoutInflater.from(context);
+                           //        View view = inflater.inflate(R.layout.popup, null);
+                           //     tv = (TextView) view.findViewById(R.id.test);
+                           //     tv.setText("I love you Khan Sahb");
+
+                                AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
+                                altbox.setMessage("Name  "+pm.getName()+"\n"+"Colg  "+pm.getColg()+"\n"+"Contact  "+pm.getContactnum() ).setCancelable(true);
+                                AlertDialog alert = altbox.create();
+                                alert.setTitle("Owner Info");
+                                alert.show();
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        //till here i am fetching info of the owner of the book..
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
         }
-
-
-
-
 
     @Override
     public int getItemCount() {
@@ -189,5 +250,4 @@ public  String s6;
      dialog.dismiss();
         Toast.makeText(context,"Request has been sent to the owner of the book.  . .. ",Toast.LENGTH_LONG).show();
     }
-
 }
