@@ -96,21 +96,19 @@ public class Book_exchange extends Fragment {
 
                     if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
+
                         
                     }
-
-
+                //    adapter.notifyDataSetChanged();
 
                 }
                 adapter = new RecyclerViewAdopterForDeleting(getActivity(), list);
-
+                //adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
+                //adapter.notifyDataSetChanged();
 
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
-
-
-
             }
 
             @Override

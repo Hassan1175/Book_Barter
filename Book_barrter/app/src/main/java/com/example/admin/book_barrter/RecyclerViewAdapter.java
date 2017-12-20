@@ -34,17 +34,21 @@ import java.util.List;
  * Created by ADMIN on 10/12/2017.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     TextView tv;
 
+    public static long count;
 
-   public final String Database_pathh = "borrow";
+    public final String Database_pathh = "borrow";
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     Profile_model pm;
-//that is the reference for the profile picture  . . .  ..
+    //that is the reference for the profile picture  . . .  ..
     private DatabaseReference databaseReferenceforprofile;
+
+
+    DatabaseReference myref;
 
     private DatabaseReference myprofile;
 
@@ -59,14 +63,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public String s5;
 
-public  String s6;
+    public String s6;
 
-   // private static final String LOG = "TESTLOG";
-    FirebaseAuth firebaseAuth ;
+    // private static final String LOG = "TESTLOG";
+    FirebaseAuth firebaseAuth;
     FirebaseUser profile;
-    public   String test;
-    public   String test2;
-   // Book_upload bu;
+    public String test;
+    public String test2;
+    // Book_upload bu;
 
     Context context;
     List<uploading> MainImageUploadInfoList;
@@ -83,11 +87,13 @@ public  String s6;
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
-        TextView  tv = (TextView) view.findViewById(R.id.Muser);
 
-         test = tv.getText().toString().trim();
+
+        TextView tv = (TextView) view.findViewById(R.id.Muser);
+
+        test = tv.getText().toString().trim();
         profile = firebaseAuth.getInstance().getCurrentUser();
-        test2 =  profile.getEmail().toString().trim();
+        test2 = profile.getEmail().toString().trim();
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
 
@@ -95,25 +101,28 @@ public  String s6;
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-       final  uploading UploadInfo = MainImageUploadInfoList.get(position);
-
-            holder.user_name.setText(UploadInfo.getmuser());
-            holder.book_type.setText(UploadInfo.getBook_type());
-            holder.arther_name.setText(UploadInfo.getAther_name());
-            holder.DisplayDateTime.setText(UploadInfo.getDate());
-
-            Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
 
 
+        final uploading UploadInfo = MainImageUploadInfoList.get(position);
 
-          //that button will jsut upload the data on the server for the requested book
+        holder.user_name.setText(UploadInfo.getmuser());
+        holder.book_type.setText(UploadInfo.getBook_type());
+        holder.arther_name.setText(UploadInfo.getAther_name());
+        holder.DisplayDateTime.setText(UploadInfo.getDate());
+
+        Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
+
+
+        //that button will jsut upload the data on the server for the requested book by the requesting user
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s1  =   firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
-                s2  =    UploadInfo.getmuser().toString();
-                s3  = UploadInfo.getBook_type().toString();
-                s4  =UploadInfo.getAther_name().toString();
+                s1 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
+
+
+                s2 = UploadInfo.getmuser().toString();
+                s3 = UploadInfo.getBook_type().toString();
+                s4 = UploadInfo.getAther_name().toString();
                 s5 = UploadInfo.getUrl().toString();
                 forborrowthebooks();
             }
@@ -131,17 +140,16 @@ public  String s6;
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
-                           // uploading UploadInfo = postSnapshot.getValue(uploading.class);
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            // uploading UploadInfo = postSnapshot.getValue(uploading.class);
                             uploading imageUploadInfo = MainImageUploadInfoList.get(position);
 
-                            clicked_owner_info =   imageUploadInfo.getmuser();
+                            clicked_owner_info = imageUploadInfo.getmuser();
 
-                            owner =  clicked_owner_info.replace(".","_");
-
+                            owner = clicked_owner_info.replace(".", "_");
                         }
- // in above data change method, i made datachange method to get the email of the owner of book, then below i am makng again
-  // database reference to get the data of the got email address... . .
+                        // in above data change method, i made datachange method to get the email of the owner of book, then below i am makng again
+                        // database reference to get the data of the got email address... . .
 
                         myprofile = FirebaseDatabase.getInstance().getReference("Profile_Data").child(owner);
                         myprofile.addValueEventListener(new ValueEventListener() {
@@ -149,6 +157,7 @@ public  String s6;
                             public void onDataChange(DataSnapshot dataSnapshot) {
 
                                 //   for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+
 
                                 pm = dataSnapshot.getValue(Profile_model.class);
                                 // imageUploadInfo.getmuser().toString();
@@ -158,18 +167,34 @@ public  String s6;
                                 pm.getColg();
                                 pm.getName();
 
-                                Log.i("Tag",pm.getContactnum()+"  "+pm.getName()+"  "+pm.getColg());
+                                Log.i("Tag", pm.getContactnum() + "  " + pm.getName() + "  " + pm.getColg());
 
 
-                           //   LayoutInflater inflater = LayoutInflater.from(context);
-                           //        View view = inflater.inflate(R.layout.popup, null);
-                           //     tv = (TextView) view.findViewById(R.id.test);
-                           //     tv.setText("I love you Khan Sahb");
+                                //   LayoutInflater inflater = LayoutInflater.from(context);
+                                //        View view = inflater.inflate(R.layout.popup, null);
+                                //     tv = (TextView) view.findViewById(R.id.test);
+                                //     tv.setText("I love you Khan Sahb");
 
-                                AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
-                                altbox.setMessage("Name  "+pm.getName()+"\n"+"Colg  "+pm.getColg()+"\n"+"Contact  "+pm.getContactnum() ).setCancelable(true);
+
+                            /*
+                            in order to inflate layout for the dialogue box in android
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+// ...Irrelevant code for customizing the buttons and title
+LayoutInflater inflater = this.getLayoutInflater();
+View dialogView = inflater.inflate(R.layout.alert_label_editor, null);
+dialogBuilder.setView(dialogView);
+
+EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
+editText.setText("test label");
+AlertDialog alertDialog = dialogBuilder.create();
+alertDialog.show();
+                                 */
+
+                                AlertDialog.Builder altbox = new AlertDialog.Builder(context);
+                                altbox.setMessage("Name  " + pm.getName() + "\n" + "Colg  " + pm.getColg() + "\n" + "Contact  " + pm.getContactnum()).setCancelable(true);
                                 AlertDialog alert = altbox.create();
                                 alert.setTitle("Owner Info");
+                                // alert.setView(view);
                                 alert.show();
 
 
@@ -195,13 +220,14 @@ public  String s6;
             }
         });
 
-        }
+    }
 
     @Override
     public int getItemCount() {
         return MainImageUploadInfoList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView user_name;
         public TextView book_type;
@@ -221,7 +247,7 @@ public  String s6;
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
             owner_data = (Button) itemView.findViewById(R.id.owner_info);
 
-            DisplayDateTime = (TextView)itemView.findViewById(R.id.Date);
+            DisplayDateTime = (TextView) itemView.findViewById(R.id.Date);
 
 
             button = (Button) itemView.findViewById(R.id.newbutton);
@@ -231,23 +257,74 @@ public  String s6;
     }
 
 
-    public void forborrowthebooks(){
-        final ProgressDialog dialog = new ProgressDialog(context);
-        dialog.setTitle("Sending borrowing request. . .. . .");
-        dialog.show();
+    // this is the method to send the request to the user for requesting the book. . ..
 
-        databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathh);
+
+    public void counnt() {
+
+        myref = FirebaseDatabase.getInstance().getReference("borrow").child(s1.replace(".", "_"));
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                count = dataSnapshot.getChildrenCount();
+
+                Log.i("Tag", count + "" + "Method");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+
+    public void forborrowthebooks() {
+        counnt();
+
+
+        Log.i("Tag", count + "");
+        final ProgressDialog dialog = new ProgressDialog(context);
+        //   dialog.setTitle("Sending borrowing request. . .. . .");
+        //  dialog.show();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
+
         String key = databaseReference.push().getKey();
-        final BorrowModel requesting = new BorrowModel(s1,s2,s3,s4,s5,key);
-        try{
-            // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
-            databaseReference.child(key).setValue(requesting);
-            //                 databaseReference.setValue(uploadiiinngg);
-       }
-      catch (Exception e){
-           Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
-     }
-     dialog.dismiss();
-        Toast.makeText(context,"Request has been sent to the owner of the book.  . .. ",Toast.LENGTH_LONG).show();
+        final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key);
+
+        //myprofile = FirebaseDatabase.getInstance().getReference("Profile_Data").child(owner);
+
+
+        //till here
+
+        if (count <= 3) {
+
+
+            try {
+                // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
+                databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
+                //                 databaseReference.setValue(uploadiiinngg);
+
+                count++;
+
+            } catch (Exception e) {
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            dialog.dismiss();
+          Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
+        }
+
+           else{
+         Toast.makeText(context,"Sorry you cannot issue that book. . . ",Toast.LENGTH_LONG).show();
+
+         }
+
+
     }
 }

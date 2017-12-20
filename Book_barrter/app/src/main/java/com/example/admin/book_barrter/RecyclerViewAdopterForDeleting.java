@@ -52,7 +52,7 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
 
 
         // return null;
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerviewfordeleting, parent, false);
 
 
         TextView tv = (TextView) view.findViewById(R.id.Muser);
@@ -88,6 +88,9 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
 
         holder.book_type.setText(UploadInfo.getBook_type());
         holder.arther_name.setText(UploadInfo.getAther_name());
+        holder.date.setText(UploadInfo.getDate());
+
+
         Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
 
 
@@ -101,9 +104,8 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
                 DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
                 dr.removeValue();
 
-                //  Toast.makeText(RecyclerViewAdapter.this,"Here i have deletd your user. . . ",Toast.LENGTH_LONG).show();
-
             }
+
         });
         //}
 
@@ -125,6 +127,7 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
         public TextView user_name;
         public TextView book_type;
         public TextView arther_name;
+        public TextView date;
         public ImageView imageView;
         public Button button;
 
@@ -135,6 +138,7 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
             book_type = (TextView) itemView.findViewById(R.id.type);
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
+            date =  (TextView) itemView.findViewById(R.id.Date);
             button = (Button) itemView.findViewById(R.id.newbutton);
 
             button.setText("Delete");
