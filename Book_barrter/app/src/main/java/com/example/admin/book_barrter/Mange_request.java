@@ -30,6 +30,8 @@ public class Mange_request extends Fragment {
     FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
     DatabaseReference databaseReference;
+
+    DatabaseReference dref;
     // Creating RecyclerView.
     RecyclerView recyclerView;
     // Creating Progress dialog
@@ -40,6 +42,8 @@ public class Mange_request extends Fragment {
 
     // Creating List of Model class, which is named as uploading.. . .
     List<BorrowModel> list = new ArrayList<>();
+
+    public static  String owner;
 
 
         BorrowModel borrowModel;
@@ -69,8 +73,31 @@ public class Mange_request extends Fragment {
 
         Toast.makeText(getActivity(), "Hello I ahere.    .", Toast.LENGTH_SHORT).show();
 
+/*
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("borrow");
+       dref = FirebaseDatabase.getInstance().getReference("borrow");
+        dref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    borrowModel = postSnapshot.getValue(BorrowModel.class);
+
+                owner =    borrowModel.getBook_owner();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+*/
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("borrow2");
         Toast.makeText(getActivity(), "Hello I ahere. again   .", Toast.LENGTH_SHORT).show();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +109,7 @@ public class Mange_request extends Fragment {
 // here i have to put the check that, the requests of currently logged in user should be displayed from the common
 // databse of the  boorw node of borrowing requests database. .     . ..
 
-                    if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
+                   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
                         list.add(borrowModel);
                     }
                 }

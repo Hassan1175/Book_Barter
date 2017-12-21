@@ -6,9 +6,19 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,13 +32,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 /**
  * Created by ADMIN on 18/11/2017.
  */
 
-public class Book_catalog extends Fragment {
+public class Book_catalog extends Fragment implements SearchView.OnQueryTextListener {
     public Button borrow;
+
+    public long count;
 
     FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
@@ -39,10 +52,25 @@ public class Book_catalog extends Fragment {
     ProgressDialog progressDialog;
 
     // Creating RecyclerView.Adapter.
-    RecyclerView.Adapter adapter ;
+    RecyclerView.Adapter adapter;
+
+
+    RecyclerView.Adapter newadapter;
+    DatabaseReference myref;
+    Toolbar toolbar;
+
+    RecyclerViewAdapter adapter2;
+
+
+
+    public static String bookname;
 
     // Creating List of Model class, which is named as uploading.. . .
     List<uploading> list = new ArrayList<>();
+
+    List<uploading> newlist = new ArrayList<>();
+
+    List<String> allbooks = new ArrayList<>();
 
     @Nullable
     @Override
@@ -51,7 +79,20 @@ public class Book_catalog extends Fragment {
 
         View view = inflater.inflate(R.layout.book_catalog,container,false);
 
+
+
         //borrow = (Button) view.findViewById(R.id.newbutton);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
+        //that is how to use setsupportActionbar for fragment...above one is for activity..
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        setHasOptionsMenu(true);
+
+
+
+
 
 
         // Assign id to RecyclerView.
@@ -80,21 +121,23 @@ public class Book_catalog extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
                     uploading imageUploadInfo = postSnapshot.getValue(uploading.class);
-                    // imageUploadInfo.getmuser().toString();
+                    //imageUploadInfo.getmuser().toString();
+
+                  //  allbooks.add(imageUploadInfo.getAther_name().toString());
 
                  //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
+
                    // }
                 }
                 // this is the object of the custom adopter class of the recycle view. . .
-                adapter = new RecyclerViewAdapter(getActivity(), list);
+                adapter2 = new RecyclerViewAdapter(getActivity(), list);
 
-                recyclerView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter2);
+
 
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
@@ -110,13 +153,89 @@ public class Book_catalog extends Fragment {
         });
 
 
-
-
         return view;
     }
 
 
 
+/*
+    public void counnt() {
+
+        myref = FirebaseDatabase.getInstance().getReference("borrow").child(s1.replace(".", "_"));
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                count = dataSnapshot.getChildrenCount();
+
+                Log.i("Tag", count + "" + "Inneer");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+*/
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        //MenuInflater menuInflater ;
+        //LayoutInflater inflater = LayoutInflater.from(context);
+        //        View view = inflater.inflate(R.layout.popup, null);
+        inflater.inflate(R.menu.menu_item,menu);
+        MenuItem  menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        /*
+        newText = newText.toLowerCase();
+        for (int i = 0; i< allbooks.size(); i++){
+            if(allbooks.get(i).toLowerCase().contains(newText)){
+
+                newlist.add(new uploading(list.get(i).muser, list.get(i).book_type,list.get(i).ather_name,list.get(i).id,list.get(i).url,list.get(i).date));
+
+                Log.i("Tag",allbooks.get(i));
+            }
+        }
+        newadapter = new RecyclerViewAdapter(getActivity(), newlist);
+        recyclerView.removeAllViews();
+        recyclerView.setAdapter(newadapter);
 
 
+
+        //here i will trevers through all book names and will add in the list...
+        */
+
+        newText = newText.toLowerCase();
+        ArrayList<uploading>  newlist = new ArrayList<>();
+        for(uploading upload : list){
+            String  book_name = upload.getAther_name().toLowerCase();
+            if(book_name.contains(newText)){
+                newlist.add(upload);
+            }
+
+        }
+
+        adapter2.setfilter(newlist);
+
+
+        return true;
+    }
+
+
+    // till here. . ..
 }

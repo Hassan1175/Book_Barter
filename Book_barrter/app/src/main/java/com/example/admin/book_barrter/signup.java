@@ -53,8 +53,7 @@ public class signup extends Fragment {
          ed2 = (EditText) view.findViewById(R.id.paswordd);
 
 
-        ed1.setText("aa@gmail.com");
-        ed2.setText("123456");
+
      //   Button      btn   = (Button) view.findViewById(R.id.registration);
 
 

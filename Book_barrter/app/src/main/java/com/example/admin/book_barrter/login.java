@@ -56,6 +56,12 @@ public class login extends Fragment{
         //cos here we are using fragments, so for it we will use view.findview
             ed1 = (EditText) view.findViewById(R.id.username);
             ed2 = (EditText) view.findViewById(R.id.password);
+
+
+        ed1.setText("aa@gmail.com");
+        ed2.setText("123456");
+
+
         loginbtn = (Button) view.findViewById(R.id.login);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -91,6 +97,7 @@ public class login extends Fragment{
 
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.main_screen,signup);
+        //ft.addToBackStack()
         ft.commit();
 
       //  Toast.makeText(getActivity(),"hello how are u",Toast.LENGTH_SHORT).show();

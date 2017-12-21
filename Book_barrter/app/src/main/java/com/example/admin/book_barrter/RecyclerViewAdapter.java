@@ -41,6 +41,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static long count;
 
     public final String Database_pathh = "borrow";
+    public final String Database_pathh2 = "borrow2";
+    private DatabaseReference databaseReference2;
+
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     Profile_model pm;
@@ -269,7 +272,7 @@ alertDialog.show();
 
                 count = dataSnapshot.getChildrenCount();
 
-                Log.i("Tag", count + "" + "Method");
+                Log.i("Tag", count + "" + "Inneer");
 
             }
 
@@ -282,33 +285,27 @@ alertDialog.show();
 
     }
 
-
     public void forborrowthebooks() {
-        counnt();
-
-
-        Log.i("Tag", count + "");
+       counnt();
+        Log.i("Tag", count + ""+ "outer.");
         final ProgressDialog dialog = new ProgressDialog(context);
         //   dialog.setTitle("Sending borrowing request. . .. . .");
         //  dialog.show();
-
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
-
         String key = databaseReference.push().getKey();
         final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key);
-
-        //myprofile = FirebaseDatabase.getInstance().getReference("Profile_Data").child(owner);
-
-
         //till here
-
         if (count <= 3) {
-
-
             try {
-                // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
+
                 databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
                 //                 databaseReference.setValue(uploadiiinngg);
+
+
+
+                databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
+                databaseReference2.child(key).setValue(requesting);
+
 
                 count++;
 
@@ -327,4 +324,21 @@ alertDialog.show();
 
 
     }
+
+
+
+
+// that method is for searching
+
+    public void setfilter ( List<uploading>newwlsit){
+
+        //re initializing the list
+        MainImageUploadInfoList = new ArrayList<>();
+        MainImageUploadInfoList.addAll(newwlsit);
+        notifyDataSetChanged();
+    }
+
+//till here  . . .   ..   .
+
+
 }
