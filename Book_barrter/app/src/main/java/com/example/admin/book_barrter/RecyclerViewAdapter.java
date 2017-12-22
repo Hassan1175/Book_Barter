@@ -3,6 +3,8 @@ package com.example.admin.book_barrter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -36,7 +40,12 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    TextView tv;
+    TextView naam;
+    TextView number;
+    TextView mail;
+    TextView location;
+
+    ImageView imageView;
 
     public static long count;
 
@@ -163,21 +172,46 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                                 pm = dataSnapshot.getValue(Profile_model.class);
-                                // imageUploadInfo.getmuser().toString();
 
-                                //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
-                                pm.getContactnum();
-                                pm.getColg();
-                                pm.getName();
 
                                 Log.i("Tag", pm.getContactnum() + "  " + pm.getName() + "  " + pm.getColg());
 
 
-                                //   LayoutInflater inflater = LayoutInflater.from(context);
-                                //        View view = inflater.inflate(R.layout.popup, null);
-                                //     tv = (TextView) view.findViewById(R.id.test);
-                                //     tv.setText("I love you Khan Sahb");
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
+                                  LayoutInflater inflater = LayoutInflater.from(context);
+                                        View dialogView = inflater.inflate(R.layout.popup, null);
+
+                                    naam = (TextView) dialogView.findViewById(R.id.name);
+                                mail = (TextView) dialogView.findViewById(R.id.maill);
+                                number = (TextView) dialogView.findViewById(R.id.fone);
+                                naam = (TextView) dialogView.findViewById(R.id.name);
+                                location = (TextView) dialogView.findViewById(R.id.city);
+                               imageView= (ImageView) dialogView.findViewById(R.id.profilepic);
+
+                                String num = pm.getContactnum();
+                                String col  =pm.getColg();
+                              String n=  pm.getName();
+                                String e = pm.getEmail();
+                            String pic =   pm.getUrlofdp();
+
+                                //that is just to convet URL of  the image into the image from picsso library and set it into the imageview
+                                Picasso.with(context)
+                                        .load(pic)
+                                        .resize(20,20).into(imageView);
+
+
+                               naam.setText(n);
+                               number.setText(num);
+                                mail.setText(e);
+                                location.setText(col);
+                            //    URL url = new URL(pm.getUrlofdp());
+                               // Bitmap bmp = BitmapFactory.decodeStream(pic);
+                              //  imageView.setImageBitmap(bmp);
+
+
+
+                                dialogBuilder.setView(dialogView);
 
                             /*
                             in order to inflate layout for the dialogue box in android
@@ -193,10 +227,11 @@ AlertDialog alertDialog = dialogBuilder.create();
 alertDialog.show();
                                  */
 
-                                AlertDialog.Builder altbox = new AlertDialog.Builder(context);
-                                altbox.setMessage("Name  " + pm.getName() + "\n" + "Colg  " + pm.getColg() + "\n" + "Contact  " + pm.getContactnum()).setCancelable(true);
-                                AlertDialog alert = altbox.create();
-                                alert.setTitle("Owner Info");
+                           //     AlertDialog.Builder altbox = new AlertDialog.Builder(context);
+                           //     altbox.setMessage("Name  " + pm.getName() + "\n" + "Colg  " + pm.getColg() + "\n" + "Contact  " + pm.getContactnum()).setCancelable(true);
+                                AlertDialog alert = dialogBuilder.create();
+
+                         //       alert.setTitle("Owner Info");
                                 // alert.setView(view);
                                 alert.show();
 
@@ -303,6 +338,7 @@ alertDialog.show();
 
 
 
+//databaseReference2 is just a jugaar to show the requests to the relevant users
                 databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
                 databaseReference2.child(key).setValue(requesting);
 
@@ -339,6 +375,8 @@ alertDialog.show();
     }
 
 //till here  . . .   ..   .
+
+
 
 
 }

@@ -16,25 +16,30 @@
             android:background="@drawable/gradientbackground_pr"
             android:orientation="vertical">
 
-            <ImageView
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="35dp"
-                android:src="@drawable/logo"
+                app:civ_border_width="2dp"
 
-                />
+                android:src="@drawable/logo"
+                app:civ_border_color="#FF000000"/>
+
+
 
             <EditText
-
-
                 android:id="@+id/display_name"
                 android:hint="Display Name"
 
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:gravity="center"
                 android:layout_marginTop="20dp"
 
                 android:textColor="#fff"
@@ -45,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="upload pic"
                 android:id="@+id/change_pic"
+                android:visibility="invisible"
 
                 />
 
@@ -79,8 +85,8 @@
                 android:id="@+id/colg_name"
                 android:hint="College name/ Year"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:paddingLeft="35dp"
 
@@ -94,19 +100,21 @@
             android:paddingLeft="35dp"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="1">
 
             <ImageView
                 android:id="@+id/imageView4"
 
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_weight="0.06"
                 android:src="@drawable/ic_phone_android_black_24dp" />
 
             <EditText
                 android:id="@+id/contactno"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
 
                 android:hint="contact#"
@@ -132,8 +140,8 @@
             <EditText
                 android:id="@+id/email"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
                 android:enabled="false"
                 android:paddingLeft="35dp"
                 android:layout_gravity="center"
@@ -145,18 +153,45 @@
 
 
     </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+   >
 
 
     <Button
 
-        android:id="@+id/profileinfo"
+        android:id="@+id/edit"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        android:background="@color/startblue"
+        android:text="Edit Profile"
+        android:textColor="#fff"
+        android:layout_marginRight="82dp"
+        android:layout_marginEnd="82dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_gravity="center"
         android:background="@color/startblue"
         android:text="Update Info"
         android:textColor="#fff"
-        />
+        android:layout_marginRight="62dp"
+        android:layout_marginEnd="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/edit"
+        android:layout_toStartOf="@+id/edit"
+        android:visibility="invisible"/>
+
+</RelativeLayout>
+
 
 </LinearLayout>
