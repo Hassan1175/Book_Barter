@@ -2,6 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:title="Home Screen"
+
+        android:id="@+id/home_screen"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        ></item>
+
+
+    <item
+     android:title="LOG OUT"
+        android:id="@+id/logout"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+     ></item>
 
 
 <item
@@ -11,8 +26,6 @@
 
     app:actionViewClass ="android.support.v7.widget.SearchView"
     app:showAsAction="always|collapseActionView">
-
-
 
 
 </item>

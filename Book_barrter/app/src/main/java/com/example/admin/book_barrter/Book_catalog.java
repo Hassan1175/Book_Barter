@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -168,16 +169,12 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         MenuItem  menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
-
         super.onCreateOptionsMenu(menu, inflater);
-
     }
     @Override
     public boolean onQueryTextSubmit(String query) {
-
         return false;
     }
-
     @Override
     public boolean onQueryTextChange(String newText) {
 
@@ -188,40 +185,44 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
             if(book_name.contains(newText)){
                 newlist.add(upload);
             }
-
         }
-
         adapter2.setfilter(newlist);
-
-
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if(id== R.id.home_screen){
 
+            Intent i = new Intent(getActivity(),Home_screen.class);
+            startActivity(i);
+            return true;
+        }
+        if(id==R.id.logout){
+
+            firebaseAuth.getInstance().signOut();
+            getActivity().finish();
+            startActivity(new Intent (getActivity(),MainActivity.class));
+            return  true;
+        }
+        return  true;
+    }
     // till here. . ..
-
     public void counnt() {
-
         myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 count = dataSnapshot.getChildrenCount();
-
                 Log.i("Tag", count + "" + "Inneer");
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
     }
-
+    // that is just the getter of the variable count.. Cos we have toi get the values of the count in the adopter class tfhrough the object of that class.
     public long getCount() {
         return count;
     }
