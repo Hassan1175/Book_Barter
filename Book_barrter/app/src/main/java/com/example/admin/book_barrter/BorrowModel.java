@@ -12,6 +12,7 @@ public class BorrowModel {
     public String book_sort;
     public String name_ather;
     public String urlofpic;
+    public String date;
 
     public String getId() {
         return id;
@@ -37,14 +38,18 @@ public class BorrowModel {
         return urlofpic;
     }
 
+    public String getDate() {
+        return date;
+    }
 
-    public BorrowModel(String requesting_user, String book_owner, String book_sort, String name_ather, String urlofpic,String id) {
+    public BorrowModel(String requesting_user, String book_owner, String book_sort, String name_ather, String urlofpic, String id, String date) {
         this.requesting_user = requesting_user;
         this.book_owner = book_owner;
         this.book_sort = book_sort;
         this.name_ather = name_ather;
         this.urlofpic = urlofpic;
         this.id =id;
+        this.date=date;
     }
 
     // that is the default constructor which is neccessary to be made in order to display the stuff in the recycler view. .

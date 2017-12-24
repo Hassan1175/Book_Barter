@@ -66,11 +66,12 @@ public class RecyclerViewForResponse extends RecyclerView.Adapter<RecyclerViewFo
 
 
 
-        holder.user_name.setText(Responseinfo.getCurrent_user());
+     //   holder.user_name.setText(Responseinfo.getCurrent_user());
 
-        holder.Requested_user.setText(Responseinfo.getRequesting_user());
+        holder.user_name.setText(Responseinfo.getRequesting_user());
         holder.book_type.setText(Responseinfo.getBook_category());
         holder.arther_name.setText(Responseinfo.getAther());
+        holder.date.setText(Responseinfo.getDate());
 
         holder.Status.setText(Responseinfo.getResponse());
         Glide.with(context).load(Responseinfo.getPicurl()).into(holder.imageView);
@@ -103,10 +104,11 @@ public class RecyclerViewForResponse extends RecyclerView.Adapter<RecyclerViewFo
 
         public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView user_name;
-            public TextView Requested_user;
+           /// public TextView Requested_user;
         public TextView book_type;
         public TextView arther_name;
         public TextView Status;
+            public  TextView date;
         public ImageView imageView;
         public Button button;
 
@@ -114,11 +116,12 @@ public class RecyclerViewForResponse extends RecyclerView.Adapter<RecyclerViewFo
             super(itemView);
 
             Status=(TextView) itemView.findViewById(R.id.Status);
-            Requested_user =(TextView) itemView.findViewById(R.id.requested);
+         //   Requested_user =(TextView) itemView.findViewById(R.id.requested);
             user_name = (TextView) itemView.findViewById(R.id.R_Muser);
             book_type = (TextView) itemView.findViewById(R.id.R_type);
             arther_name = (TextView) itemView.findViewById(R.id.R_writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.R_book_photo);
+            date = (TextView) itemView.findViewById(R.id.R_Date);
 
 
             button = (Button) itemView.findViewById(R.id.confirmation);

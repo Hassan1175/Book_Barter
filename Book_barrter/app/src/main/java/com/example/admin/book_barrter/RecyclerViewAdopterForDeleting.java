@@ -104,8 +104,6 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
                 DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
                 dr.removeValue();
 
-
-
             }
 
         });

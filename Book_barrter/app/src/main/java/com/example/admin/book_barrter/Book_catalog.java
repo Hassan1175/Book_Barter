@@ -41,7 +41,7 @@ import java.util.zip.Inflater;
 public class Book_catalog extends Fragment implements SearchView.OnQueryTextListener {
     public Button borrow;
 
-    public long count;
+    public static long count;
 
     FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
@@ -78,9 +78,6 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 //        return super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.book_catalog,container,false);
-
-
-
         //borrow = (Button) view.findViewById(R.id.newbutton);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
       //  setSupportActionBar(toolbar);
@@ -153,32 +150,14 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         });
 
 
+
+        counnt();
+
+
         return view;
     }
 
 
-
-/*
-    public void counnt() {
-
-        myref = FirebaseDatabase.getInstance().getReference("borrow").child(s1.replace(".", "_"));
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                count = dataSnapshot.getChildrenCount();
-
-                Log.i("Tag", count + "" + "Inneer");
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-*/
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
@@ -201,24 +180,6 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        /*
-        newText = newText.toLowerCase();
-        for (int i = 0; i< allbooks.size(); i++){
-            if(allbooks.get(i).toLowerCase().contains(newText)){
-
-                newlist.add(new uploading(list.get(i).muser, list.get(i).book_type,list.get(i).ather_name,list.get(i).id,list.get(i).url,list.get(i).date));
-
-                Log.i("Tag",allbooks.get(i));
-            }
-        }
-        newadapter = new RecyclerViewAdapter(getActivity(), newlist);
-        recyclerView.removeAllViews();
-        recyclerView.setAdapter(newadapter);
-
-
-
-        //here i will trevers through all book names and will add in the list...
-        */
 
         newText = newText.toLowerCase();
         ArrayList<uploading>  newlist = new ArrayList<>();
@@ -238,4 +199,30 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 
 
     // till here. . ..
+
+    public void counnt() {
+
+        myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
+        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                count = dataSnapshot.getChildrenCount();
+
+                Log.i("Tag", count + "" + "Inneer");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public long getCount() {
+        return count;
+    }
 }

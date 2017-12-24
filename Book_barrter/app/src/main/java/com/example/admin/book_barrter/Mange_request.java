@@ -73,28 +73,6 @@ public class Mange_request extends Fragment {
 
         Toast.makeText(getActivity(), "Hello I ahere.    .", Toast.LENGTH_SHORT).show();
 
-/*
-
-       dref = FirebaseDatabase.getInstance().getReference("borrow");
-        dref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    borrowModel = postSnapshot.getValue(BorrowModel.class);
-
-                owner =    borrowModel.getBook_owner();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-*/
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("borrow2");

@@ -37,6 +37,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
     String current_user;
     String requesting_user;
     String PICURL;
+    String date;
 
     private DatabaseReference databaseReference;
 //that path is to uplaod data on new child node named as response_data
@@ -91,6 +92,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
         holder.user_name.setText(borrowinfo.getrequesting_user());
         holder.book_type.setText(borrowinfo.getBook_sort());
         holder.arther_name.setText(borrowinfo.getName_ather());
+        holder.date.setText(borrowinfo.getDate());
         Glide.with(context).load(borrowinfo.getUrlofpic()).into(holder.imageView);
 
 // that is  the button for the  confirmaion of the bok which has been requested from a particular user . ..
@@ -106,10 +108,6 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                           @Override
                           public void onClick(DialogInterface dialog, int which) {
 
-//                              tv_response.setText("YES");
-
-
-
                               response = "YES: Book is available for you.";
 
                               ather = borrowinfo.getName_ather().toString();
@@ -118,14 +116,13 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                               requesting_user = borrowinfo.getrequesting_user().toString();
                               PICURL  =  borrowinfo.getUrlofpic().toString();
+                              date = borrowinfo.getDate().toString();
 
 
                               Log.i("Tag", response + "       "+"       "+ather + "       "+book_category+ "   "+current_user+"       "+PICURL  );
 
 
                               responseback();
-
-
 
 
                               Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
@@ -144,6 +141,8 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                               requesting_user = borrowinfo.getrequesting_user().toString();
                               PICURL  =  borrowinfo.getUrlofpic().toString();
+                              date = borrowinfo.getDate().toString();
+
 
 
                               Log.i("Tag", response + "       "+"       "+ather + "       "+book_category+ "   "+current_user+"       "+PICURL  );
@@ -176,6 +175,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
         public TextView user_name;
         public TextView book_type;
         public TextView arther_name;
+        public TextView date;
         public ImageView imageView;
         public Button button;
 
@@ -186,7 +186,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
             book_type = (TextView) itemView.findViewById(R.id.borrow_type);
             arther_name = (TextView) itemView.findViewById(R.id.b_writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.borrow_book_photo);
-
+           date = (TextView) itemView.findViewById(R.id.Date);
 
             button = (Button) itemView.findViewById(R.id.confirmation);
 
@@ -207,17 +207,12 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
          dialog.show();
 
          databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathhh);
-
-
          String key = databaseReference.push().getKey();
 
-         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL);
+         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,date);
         // final ResponseModel responseInfo = new ResponseModel(response,book_category,current_user,requesting_user,PICURL);
 
-
          try{
-
-
              // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);
 
              databaseReference.child(key).setValue(responseModel);
