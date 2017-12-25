@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    >
 
 
 
 
+
+    <include
+        layout="@layout/toolbar_layout"></include>
 
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="55dp"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/R_recyclerView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -19,4 +24,4 @@
 
 
     </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>

@@ -62,8 +62,6 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 
     RecyclerViewAdapter adapter2;
 
-
-
     public static String bookname;
 
     // Creating List of Model class, which is named as uploading.. . .
@@ -80,6 +78,8 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 
         View view = inflater.inflate(R.layout.book_catalog,container,false);
         //borrow = (Button) view.findViewById(R.id.newbutton);
+
+
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
       //  setSupportActionBar(toolbar);
         //that is how to use setsupportActionbar for fragment...above one is for activity..
@@ -87,7 +87,6 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         setHasOptionsMenu(true);
-
 
 
 
@@ -162,9 +161,6 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        //MenuInflater menuInflater ;
-        //LayoutInflater inflater = LayoutInflater.from(context);
-        //        View view = inflater.inflate(R.layout.popup, null);
         inflater.inflate(R.menu.menu_item,menu);
         MenuItem  menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);

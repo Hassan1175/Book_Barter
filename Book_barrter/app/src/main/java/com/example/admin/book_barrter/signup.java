@@ -31,7 +31,7 @@ public class signup extends Fragment {
 
     EditText ed1;
     EditText ed2;
-
+    EditText ed3;
 
     ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
@@ -52,7 +52,7 @@ public class signup extends Fragment {
          ed1 = (EditText) view.findViewById(R.id.email);
          ed2 = (EditText) view.findViewById(R.id.paswordd);
 
-
+        ed3 = (EditText) view.findViewById(R.id.confirmpasword);
 
      //   Button      btn   = (Button) view.findViewById(R.id.registration);
 
@@ -63,31 +63,17 @@ public class signup extends Fragment {
         enroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(),"sdasdasda",Toast.LENGTH_LONG).show();
-
-
          //here i will call move method. which is creating new users omn the firebase. . . . .
-
                 move();
-
-
             }
         });
 
-
         return view;
-
     }
-
     public void move (){
         String email = ed1.getText().toString().trim();
         String password = ed2.getText().toString().trim();
-
-        Log.i("TAG", "move: "+email+"  "+password);
-
-
-        Toast.makeText(getActivity(),email,Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(),password,Toast.LENGTH_SHORT).show();
+        String matchpassword = ed3.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"Please enter your Email",Toast.LENGTH_SHORT).show();
@@ -98,39 +84,30 @@ public class signup extends Fragment {
             return;
         }
 
+        if(password.equals(matchpassword)){
        progressDialog.setMessage("User is Registering. .  ..");
         progressDialog.show();
-
-        firebaseAuth.createUserWithEmailAndPassword(email,password)
+            firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-
                     Toast.makeText(getActivity(), "User has successfully enrolled", Toast.LENGTH_LONG).show();
-
-                 // progressDialog.setMessage("Book Barter Loading . . .");
-                   // progressDialog.show();
-
-
-                    //there will wait of 4 seconds
-
-
                             Intent i = new Intent(getActivity(),Home_screen.class);
                             startActivity(i);
-                    progressDialog.dismiss();
-
-
-
+                          progressDialog.dismiss();
                 }
                 else
                     Toast.makeText(getActivity(), "Something went wring. Try Again !!!", Toast.LENGTH_LONG).show();
-
             }
         });
 
-
     }
 
+    else {
+
+            Toast.makeText(getActivity(), "Password does not match !!!", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

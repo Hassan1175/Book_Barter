@@ -11,8 +11,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -51,7 +55,7 @@ public class Book_upload extends Fragment {
     SimpleDateFormat simpledateformat;
     static String Date;
 
-
+    Toolbar toolbar;
 
 
 
@@ -99,6 +103,16 @@ public class Book_upload extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //
         View view = inflater.inflate(R.layout.book_upload,container,false);
+
+
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //  setSupportActionBar(toolbar);
+        //that is how to use setsupportActionbar for fragment...above one is for activity..
+
+      ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        setHasOptionsMenu(true);
+
 
         progressDialog =  new ProgressDialog(getActivity());
 
@@ -276,5 +290,30 @@ public void datetime(){
 
 }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_item,menu);
+        //MenuItem  menuItem = menu.findItem(R.id.action_search);
 
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if(id== R.id.home_screen){
+
+            Intent i = new Intent(getActivity(),Home_screen.class);
+            startActivity(i);
+            return true;
+        }
+        if(id==R.id.logout){
+
+            firebaseAuth.getInstance().signOut();
+            getActivity().finish();
+            startActivity(new Intent (getActivity(),MainActivity.class));
+            return  true;
+        }
+        return  true;
+    }
 }

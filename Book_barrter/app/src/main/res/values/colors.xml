@@ -9,12 +9,6 @@
     <color name="active_dots">#060606</color>
     <color name="unactive_dots">#F10F0F</color>
 
-
-
-
-
-
-
     <color name="lightgrey">#ededed</color>
     <color name="purple">#7c4dff</color>
     <color name="green">#7c4</color>
@@ -25,9 +19,6 @@
     <color name="pink">#ff4081</color>
 
     <color name="primarydark">#292b3d</color>
-
-
-
 
     <color name="greylight">#fafafa</color>
     <color name="startblue">#09c6df</color>

@@ -11,8 +11,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -43,6 +48,8 @@ import java.io.IOException;
  */
 
 public class Profile extends Fragment {
+    Toolbar toolbar;
+
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
     private DatabaseReference dref;
@@ -85,6 +92,14 @@ Profile_model profile_model;
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.profile,container,false);
+
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //  setSupportActionBar(toolbar);
+        //that is how to use setsupportActionbar for fragment...above one is for activity..
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        setHasOptionsMenu(true);
 
 
 
@@ -208,6 +223,9 @@ edit.setOnClickListener(new View.OnClickListener() {
         });
         return view;
     }
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -276,6 +294,31 @@ edit.setOnClickListener(new View.OnClickListener() {
      }
 
       }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_item,menu);
+        //MenuItem  menuItem = menu.findItem(R.id.action_search);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if(id== R.id.home_screen){
+
+            Intent i = new Intent(getActivity(),Home_screen.class);
+            startActivity(i);
+            return true;
+        }
+        if(id==R.id.logout){
+
+            firebaseAuth.getInstance().signOut();
+            getActivity().finish();
+            startActivity(new Intent (getActivity(),MainActivity.class));
+            return  true;
+        }
+        return  true;
+    }
 
 
 }

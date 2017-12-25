@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signupbackground"
+    android:background="@drawable/background"
     >
 
 
@@ -19,13 +19,29 @@
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
         android:text="REGISTRATION"
-        android:textSize="30dp"
+        android:textSize="40dp"
 
         android:textStyle="bold" />
 
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center"
+        android:layout_marginTop="18dp"
+        android:text="Enroll yourself to get access to book catalog in order to share knowledge"
+        android:textSize="20dp"
+        android:gravity="center"
 
 
+        android:textStyle="bold" />
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
     <EditText
         android:id="@+id/email"
 
@@ -42,7 +58,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
 
 
         android:hint="Password"
@@ -57,7 +73,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
 
 
         android:hint="Confirm Password"
@@ -72,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:background="#00ffffff"
         android:text="SIGN UP"
         android:textSize="20dp"
@@ -80,69 +96,8 @@
 
 
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:layout_marginTop="10dp"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/fb"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:onClick="FACEBOOK"
 
-
-            />
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/linkedin"
-
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:onClick="LINKEDIN"
-
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/twiter"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-
-            android:clickable="true"
-            android:onClick="TWITTER"
-
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/google"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:onClick="GOOGLE"
-
-            />
-
-
-
-
-
-
-    </LinearLayout>
-
-
+</LinearLayout>
 
 </LinearLayout>
 

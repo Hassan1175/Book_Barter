@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,11 +81,8 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
     public void onBindViewHolder(RecyclerViewAdopterForDeleting.ViewHolder holder, final int position) {
         final  uploading UploadInfo = MainImageUploadInfoList.get(position);
 
-
-        // Log.i("Tag",firebaseAuth.getInstance().getCurrentUser().getEmail().toString()+" "+UploadInfo.getmuser().toString());
-        // if(firebaseAuth.getInstance().getCurrentUser().getEmail().equals(UploadInfo.getmuser())){
         holder.user_name.setText(UploadInfo.getmuser());
-        //   Log.i("Tag",holder.user_name.getText().toString());
+        //
 
         holder.book_type.setText(UploadInfo.getBook_type());
         holder.arther_name.setText(UploadInfo.getAther_name());
@@ -92,17 +90,22 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
 
 
         Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
-
-
-
         //here i am performing the deleting actions where the user can delete those books, which he uploaded. ..  .
 
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                MainImageUploadInfoList.remove(position);
+
+                notifyItemRemoved(position);
                 Log.i(LOG,"Button clicked"+ UploadInfo.getId());
-                DatabaseReference dr =    FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
+                DatabaseReference dr = FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
                 dr.removeValue();
+
+
+
+
 
             }
 
@@ -145,9 +148,5 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
 
         }
     }
-
-
-
-
 
 }

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.admin.book_barrter.Home_screen"
-    android:layout_marginTop="10dp"
-
-
+    android:orientation="vertical"
+    android:background="@drawable/background"
     >
 
+
+    <include
+        layout="@layout/toolbar_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -156,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="Books Exchanging"
+                        android:text="Exchanged Books"
                         android:textStyle="bold" />
 
                     <TextView
@@ -165,7 +172,7 @@
 
                         android:gravity="center"
 
-                        android:text="Detials about borrwoing"
+                        android:text="Detials about your books"
                         android:padding="10dp"
 
                         />
@@ -261,7 +268,7 @@
                         android:gravity="center"
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
-                        android:text="History"
+                        android:text="Responces"
                         />
 
                     <TextView
@@ -270,7 +277,7 @@
 
                         android:gravity="center"
 
-                        android:text="See you past actions"
+                        android:text="Responce of your requests"
                         android:padding="5dp"
 
                         />
@@ -329,5 +336,5 @@
 
     </LinearLayout>
 
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

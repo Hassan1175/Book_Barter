@@ -2,11 +2,17 @@ package com.example.admin.book_barrter;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,6 +33,8 @@ import java.util.List;
  */
 
 public class Mange_request extends Fragment {
+
+    Toolbar toolbar;
     FirebaseAuth firebaseAuth ;
     // Creating DatabaseReference.
     DatabaseReference databaseReference;
@@ -56,6 +64,15 @@ public class Mange_request extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //
         View view = inflater.inflate(R.layout.manage_request,container,false);
+
+
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //  setSupportActionBar(toolbar);
+        //that is how to use setsupportActionbar for fragment...above one is for activity..
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        setHasOptionsMenu(true);
 
 
         recyclerView = (RecyclerView)view.findViewById(R.id.b_recyclerView);
@@ -109,4 +126,31 @@ public class Mange_request extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_item,menu);
+        //MenuItem  menuItem = menu.findItem(R.id.action_search);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =  item.getItemId();
+        if(id== R.id.home_screen){
+
+            Intent i = new Intent(getActivity(),Home_screen.class);
+            startActivity(i);
+            return true;
+        }
+        if(id==R.id.logout){
+
+            firebaseAuth.getInstance().signOut();
+            getActivity().finish();
+            startActivity(new Intent (getActivity(),MainActivity.class));
+            return  true;
+        }
+        return  true;
+    }
+
 }
