@@ -20,9 +20,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -30,6 +36,11 @@ import java.util.List;
  */
 
 public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdopter.ViewHolder> {
+    private DatabaseReference ref;
+    Profile_model pm;
+    Calendar calendar;
+    SimpleDateFormat simpledateformat ;
+    public String Date;
 
     String response;
     String ather;
@@ -37,7 +48,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
     String current_user;
     String requesting_user;
     String PICURL;
-    String date;
+
 
     private DatabaseReference databaseReference;
 //that path is to uplaod data on new child node named as response_data
@@ -96,14 +107,14 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
         Glide.with(context).load(borrowinfo.getUrlofpic()).into(holder.imageView);
 
 // that is  the button for the  confirmaion of the bok which has been requested from a particular user . ..
-        holder.button.setOnClickListener(new View.OnClickListener() {
+        holder.confirmation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // here i will open dialogue box for getting confirmation of accepting and deleting.....
 
                 AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
 // altbox.setMessage("Hy"+ FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString()+ System.getProperty("line.separator")+ "A book named  as "+borrowinfo.book_owner+" "+"has been requested by "+borrowinfo.getrequesting_user()+" "+"what is your response ? " ).setCancelable(true)
-              altbox.setMessage("what is your response ? " ).setCancelable(true)
+              altbox.setMessage("Do you want to share that book? " ).setCancelable(true)
                       .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                           @Override
                           public void onClick(DialogInterface dialog, int which) {
@@ -116,7 +127,8 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                               requesting_user = borrowinfo.getrequesting_user().toString();
                               PICURL  =  borrowinfo.getUrlofpic().toString();
-                              date = borrowinfo.getDate().toString();
+                              // here i am commenting that date, cos i supposed to send current date/time.. that is old one.. so new is found below
+                           //   date = borrowinfo.getDate().toString();
 
 
                               Log.i("Tag", response + "       "+"       "+ather + "       "+book_category+ "   "+current_user+"       "+PICURL  );
@@ -126,6 +138,18 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
 
                               Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
+
+
+
+                              // here i am deleting the request of the book after getting confirmation
+
+                              borrowiteminfo.remove(position);
+                              notifyItemRemoved(position);
+                              //   Log.i(LOG,"Button clicked"+ UploadInfo.getId());
+                              DatabaseReference dr = FirebaseDatabase.getInstance().getReference("borrow2").child(borrowinfo.getId());
+                              dr.removeValue();
+                              notifyDataSetChanged();
+
                           }
                       })
                       .setNegativeButton("NO",new DialogInterface.OnClickListener(){
@@ -141,7 +165,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               current_user =  firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                               requesting_user = borrowinfo.getrequesting_user().toString();
                               PICURL  =  borrowinfo.getUrlofpic().toString();
-                              date = borrowinfo.getDate().toString();
+                           //   date = borrowinfo.getDate().toString();
 
 
 
@@ -161,6 +185,69 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
                 }
         });
+
+
+        holder.requestinguser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String requestinguser= borrowinfo.getrequesting_user();
+                String user = requestinguser.replace(".","_");
+
+
+               ref = FirebaseDatabase.getInstance().getReference("Profile_Data").child(user);
+               ref.addValueEventListener(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(DataSnapshot dataSnapshot) {
+
+                       pm = dataSnapshot.getValue(Profile_model.class);
+                       AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                       LayoutInflater inflater = LayoutInflater.from(context);
+                       View dialogView = inflater.inflate(R.layout.popup, null);
+                       TextView    naam = (TextView) dialogView.findViewById(R.id.name);
+                       TextView     mail = (TextView) dialogView.findViewById(R.id.maill);
+                       TextView     number = (TextView) dialogView.findViewById(R.id.fone);
+                       //naam = (TextView) dialogView.findViewById(R.id.name);
+                       TextView     location = (TextView) dialogView.findViewById(R.id.city);
+                       ImageView    imageView= (ImageView) dialogView.findViewById(R.id.profilepic);
+
+                       Log.i("Tag", pm.getContactnum() + "  " + pm.getName() + "  " + pm.getColg());
+
+                       String num = pm.getContactnum();
+                       String col  =pm.getColg();
+                       String n=  pm.getName();
+                       String e = pm.getEmail();
+                       String pic =   pm.getUrlofdp();
+
+                       //that is just to convet URL of  the image into the image from picsso library and set it into the imageview
+                       Picasso.with(context)
+                               .load(pic)
+                               .resize(20,20).into(imageView);
+
+                       naam.setText(n);
+                       number.setText(num);
+                       mail.setText(e);
+                       location.setText(col);
+
+                       dialogBuilder.setView(dialogView);
+                       AlertDialog alert = dialogBuilder.create();
+                       alert.show();
+                   }
+                   @Override
+                   public void onCancelled(DatabaseError databaseError) {
+
+                   }
+               });
+
+
+
+                //borrowinfo.getUrlofpic();
+
+                Toast.makeText(context,"Mubarkaaaaaaan",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
     }
 
     @Override
@@ -177,7 +264,9 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
         public TextView arther_name;
         public TextView date;
         public ImageView imageView;
-        public Button button;
+        public Button confirmation;
+
+        public Button requestinguser;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -186,11 +275,13 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
             book_type = (TextView) itemView.findViewById(R.id.borrow_type);
             arther_name = (TextView) itemView.findViewById(R.id.b_writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.borrow_book_photo);
+            requestinguser = (Button) itemView.findViewById(R.id.profileinfoo);
            date = (TextView) itemView.findViewById(R.id.Date);
 
-            button = (Button) itemView.findViewById(R.id.confirmation);
+            confirmation = (Button) itemView.findViewById(R.id.confirmation);
 
-            button.setText("Confirmation");
+            confirmation.setText("Confirmation");
+            requestinguser.setText("Requesting user profile");
 
         }
     }
@@ -202,6 +293,15 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
      public void    responseback(){
 
+
+
+         calendar = Calendar.getInstance();
+         simpledateformat = new SimpleDateFormat("dd-MM-yyyy / HH:mm:ss");
+
+         Date = simpledateformat.format(calendar.getTime());
+         Date = simpledateformat.format(calendar.getTime());
+
+
          final ProgressDialog dialog = new ProgressDialog(context);
          dialog.setTitle("Sending borrowing request. . .. . .");
          dialog.show();
@@ -209,7 +309,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
          databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathhh);
          String key = databaseReference.push().getKey();
 
-         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,date);
+         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,Date);
         // final ResponseModel responseInfo = new ResponseModel(response,book_category,current_user,requesting_user,PICURL);
 
          try{

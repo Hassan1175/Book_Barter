@@ -172,7 +172,7 @@
 
                         android:gravity="center"
 
-                        android:text="Detials about your books"
+                        android:text="Details about your books"
                         android:padding="10dp"
 
                         />

@@ -245,6 +245,8 @@ public void UPLOADED(){
                 String uploaded = databaseReference.push().getKey();
                 uploading uploadiiinngg = new uploading(user_profile,category,editText.getText().toString(),uploaded , taskSnapshot.getDownloadUrl().toString(),Date);
                 try{
+
+
                     databaseReference.child(uploaded).setValue(uploadiiinngg);
 
 //                    databaseReference.setValue(uploadiiinngg);

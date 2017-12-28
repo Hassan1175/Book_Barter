@@ -13,9 +13,9 @@ public class App_start extends AppCompatActivity {
 
     public String compare1 = "Books Catalog";
     public String compare2 = "Upload Books";
-    public String compare3 = "Books Exchanging";
+    public String compare3 = "Exchanged Books";
     public String compare4 = "Manage Requests";
-    public String compare5 = "History";
+    public String compare5 = "Responces";
     public String compare6 = "My Profile";
 
     public String get;

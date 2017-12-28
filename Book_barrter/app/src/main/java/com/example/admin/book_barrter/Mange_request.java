@@ -53,11 +53,7 @@ public class Mange_request extends Fragment {
 
     public static  String owner;
 
-
-        BorrowModel borrowModel;
-
-
-
+    BorrowModel borrowModel;
 
     @Nullable
     @Override
@@ -103,26 +99,31 @@ public class Mange_request extends Fragment {
 
 // here i have to put the check that, the requests of currently logged in user should be displayed from the common
 // databse of the  boorw node of borrowing requests database. .     . ..
-
-                   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
+//thtat check is working perfecly.. for testing sake, it hs been commented
+                //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
                         list.add(borrowModel);
-                    }
+                  //  }
                 }
 
                 adapter =  new B_recylerviewAdopter(getActivity(),list);
                 recyclerView.setAdapter(adapter);
+
                 progressDialog.dismiss();
 
             }
 
+          /*
+public void getPositin(int position){
+    list.remove(position);
+    //firebase database remove value
+    adapter.notifyDataSetChanged();;
+}
+*/
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-
-
-
 
         return view;
     }

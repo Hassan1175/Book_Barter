@@ -1,6 +1,8 @@
 package com.example.admin.book_barrter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -96,22 +99,38 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
             @Override
             public void onClick(View v) {
 
-                MainImageUploadInfoList.remove(position);
-
-                notifyItemRemoved(position);
-                Log.i(LOG,"Button clicked"+ UploadInfo.getId());
-                DatabaseReference dr = FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
-                dr.removeValue();
-
+                final AlertDialog.Builder altbox = new AlertDialog.Builder(context);
+                altbox.setMessage("Are you sure, you want to permanently delete that book? ").setCancelable(true)
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
 
+                                MainImageUploadInfoList.remove(position);
+                                notifyItemRemoved(position);
+                                //   Log.i(LOG,"Button clicked"+ UploadInfo.getId());
+                                DatabaseReference dr = FirebaseDatabase.getInstance().getReference(Book_upload.Database_path).child(UploadInfo.getId());
+                                dr.removeValue();
+                                notifyDataSetChanged();
 
 
+                                Toast.makeText(context, "Book has been deleted. . .", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                            }
+                        });
+
+                AlertDialog alert = altbox.create();
+                alert.setTitle("Confirmation Response");
+                alert.show();
             }
-
         });
-        //}
-
     }
 
 

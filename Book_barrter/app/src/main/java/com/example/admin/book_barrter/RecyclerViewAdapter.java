@@ -182,7 +182,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                                 //   for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
-
+//pm is  the object of my profile model class
                                 pm = dataSnapshot.getValue(Profile_model.class);
 
 

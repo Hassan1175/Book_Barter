@@ -112,8 +112,6 @@ public class Book_exchange extends Fragment {
 
                     if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
-
-                        
                     }
                 //    adapter.notifyDataSetChanged();
 
@@ -126,6 +124,16 @@ public class Book_exchange extends Fragment {
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
             }
+
+
+/*
+public void getPositin(int position){
+    list.remove(position);
+    //firebase database remove value
+    adapter.notifyDataSetChanged();;
+}
+*/
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
