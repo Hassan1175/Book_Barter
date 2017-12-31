@@ -151,7 +151,7 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
 
 
 
-        counnt();
+//        counnt();
 
 
         return view;
@@ -205,21 +205,21 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         return  true;
     }
     // till here. . ..
-    public void counnt() {
-        myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
-        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                count = dataSnapshot.getChildrenCount();
-                Log.i("Tag", count + "" + "Inneer");
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
+//    public void counnt() {
+//        myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
+//        myref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                count = dataSnapshot.getChildrenCount();
+//                Log.i("Tag", count + "" + "Inneer");
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+//    }
     // that is just the getter of the variable count.. Cos we have toi get the values of the count in the adopter class tfhrough the object of that class.
-    public long getCount() {
-        return count;
-    }
+//    public long getCount() {
+  //      return count;
+    //}
 }

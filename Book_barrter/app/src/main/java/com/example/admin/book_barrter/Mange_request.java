@@ -90,6 +90,8 @@ public class Mange_request extends Fragment {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("borrow2");
         Toast.makeText(getActivity(), "Hello I ahere. again   .", Toast.LENGTH_SHORT).show();
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -112,13 +114,6 @@ public class Mange_request extends Fragment {
 
             }
 
-          /*
-public void getPositin(int position){
-    list.remove(position);
-    //firebase database remove value
-    adapter.notifyDataSetChanged();;
-}
-*/
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -128,6 +123,19 @@ public void getPositin(int position){
         return view;
     }
 
+    /*
+      public void getPositin(int position){
+          //  list.remove(position);
+            //firebase database remove value
+            //   Log.i(LOG,"Button clicked"+ UploadInfo.getId());
+            BorrowModel bm = new BorrowModel();
+          //  bm.getId();
+            DatabaseReference dr = FirebaseDatabase.getInstance().getReference("borrow2").child(bm.getId());
+            dr.removeValue();
+        adapter.notifyDataSetChanged();
+        }
+
+    */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_item,menu);

@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     ImageView imageView;
 
-    public static long count2;
+    public static long count3;
 
     public final String Database_pathh = "borrow";
     public final String Database_pathh2 = "borrow2";
@@ -100,19 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
 
-
-
-// that is just the object of the fragment class, from which i am just getting the number of child nodes.
-
-    Book_catalog catalog = new Book_catalog();
-        count2 = catalog.getCount();
-
-    Log.i("Tag", count2 + ""+ "outeeeeer.");
-
-
-
-
-
+        
 
         TextView tv = (TextView) view.findViewById(R.id.Muser);
 
@@ -296,53 +284,54 @@ alertDialog.show();
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.book_photo);
             owner_data = (Button) itemView.findViewById(R.id.owner_info);
-
             DisplayDateTime = (TextView) itemView.findViewById(R.id.Date);
-
-
             button = (Button) itemView.findViewById(R.id.newbutton);
             button.setText("Borrow Me");
-
         }
     }
-
-
     public void forborrowthebooks() {
-          final ProgressDialog dialog = new ProgressDialog(context);
-        //   dialog.setTitle("Sending borrowing request. . .. . .");
-        //  dialog.show();
-        databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
-        String key = databaseReference.push().getKey();
-        final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key,s6);
-        //till here
-        if (count2 <= 3) {
-            try {
 
-                databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
-//databaseReference2 is just a jugaar to show the requests to the relevant users
-                databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
-                databaseReference2.child(key).setValue(requesting);
+            myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
+            myref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    count3 = dataSnapshot.getChildrenCount();
+                    final ProgressDialog dialog = new ProgressDialog(context);
+                    //   dialog.setTitle("Sending borrowing request. . .. . .");
+                    //  dialog.show();
+                    databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
+                    String key = databaseReference.push().getKey();
+                    final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key,s6);
+                    //till here
+                    if (count3 <= 3) {
+                        try {
+                            databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
+         //databaseReference2 is just a jugaar to show the requests to the relevant users
+                            databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
+                            databaseReference2.child(key).setValue(requesting);
+                            count3++;
+                            Log.i("Tag", count3 + ""+ "second");
+                        } catch (Exception e) {
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
-                count2++;
-         //       Log.i("Tag", count + ""+ "second");
-            } catch (Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+                        dialog.dismiss();
+                        Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
+                    }
 
-            dialog.dismiss();
-          Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
-        }
-
-           else{
-            AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
-            altbox.setMessage("Request Failed !!! As you have borrowed four book, which is maximum limit.");
-            AlertDialog alert = altbox.create();
-            alert.setTitle("Request Response");
-            alert.show();
-
-
-        }
-
+                    else{
+                        AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
+                        altbox.setMessage("Request Failed !!! As you have borrowed four book, which is maximum limit.");
+                        AlertDialog alert = altbox.create();
+                        alert.setTitle("Request Response");
+                        alert.show();
+                    }
+                    Log.i("Tag", count3 + "" + "Inneer");
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
     }
 
 

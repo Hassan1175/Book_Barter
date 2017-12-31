@@ -139,9 +139,11 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
 
                               Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
 
-
-
                               // here i am deleting the request of the book after getting confirmation
+
+
+//                              Mange_request mange_request = new Mange_request();
+  //                            mange_request.getPositin(position);
 
                               borrowiteminfo.remove(position);
                               notifyItemRemoved(position);
@@ -149,6 +151,10 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               DatabaseReference dr = FirebaseDatabase.getInstance().getReference("borrow2").child(borrowinfo.getId());
                               dr.removeValue();
                               notifyDataSetChanged();
+
+
+
+
 
                           }
                       })
