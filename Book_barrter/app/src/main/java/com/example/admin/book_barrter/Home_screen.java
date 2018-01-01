@@ -3,6 +3,7 @@ package com.example.admin.book_barrter;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -31,22 +32,23 @@ public class Home_screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+       // setContentView(R.layout.activity_home_screen);
+
+
+
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_home_screen);
+        }
+        else {
+            setContentView(R.layout.home_screen2);
+        }
+
+
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
           setSupportActionBar(toolbar);
-        //that is how to use setsupportActionbar for fragment...above one is for activity..
-
-       // ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
-
-
-
-
-
-
-
-
         TextView tv1 = (TextView) findViewById(R.id.header1);
         TextView tv2 = (TextView) findViewById(R.id.header2);
         TextView tv3 = (TextView) findViewById(R.id.header3);
@@ -60,15 +62,6 @@ public class Home_screen extends AppCompatActivity {
         head4 = tv4.getText().toString().trim();
         head5 = tv5.getText().toString().trim();
         head6 = tv6.getText().toString().trim();
-
-
-
-
-
-
-
-
-
     }
     public void Book_catalog(View view) {
 
@@ -83,47 +76,36 @@ public class Home_screen extends AppCompatActivity {
         startActivity(i);
     }
 
-
     public void Books_Exchange(View view) {
         Intent i = new Intent(this,App_start.class);
         i.putExtra("key",head3);
         startActivity(i);
     }
-
     public void Manage_Requests(View view) {
         Intent i = new Intent(this,App_start.class);
         i.putExtra("key",head4);
         startActivity(i);
     }
-
     public void History(View view) {
         Intent i = new Intent(this,App_start.class);
         i.putExtra("key",head5);
         startActivity(i);
     }
-
     public void My_profile(View view) {
         Intent i = new Intent(this,App_start.class);
         i.putExtra("key",head6);
         startActivity(i);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //inflater.inflate(R.menu.menu_item,menu);
         getMenuInflater().inflate(R.menu.menu_item,menu);
-        //MenuItem  menuItem = menu.findItem(R.id.action_search);
         return true;
-
-        //super.onCreateOptionsMenu(menu, inflater);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id =  item.getItemId();
-
         if(id==R.id.logout){
-
             firebaseAuth.getInstance().signOut();
             this.finish();
             startActivity(new Intent (this,MainActivity.class));
@@ -131,8 +113,4 @@ public class Home_screen extends AppCompatActivity {
         }
         return  true;
     }
-
-
-
-
 }

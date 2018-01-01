@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ public class login extends Fragment{
     String email;
     String password;
 
+    View view;
 
     Button signup1;
     FragmentManager fm;
@@ -40,45 +42,33 @@ public class login extends Fragment{
     @Nullable
     @Override
 
-    //instances of the edit texts
-
-   // Button signup;
-
-
-
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
 
 
-        View view = inflater.inflate(R.layout.login,container,false);
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            view = inflater.inflate(R.layout.login,container,false);
+        }
+        else {
+            view = inflater.inflate(R.layout.logintesting,container,false);
+        }
+       // View view = inflater.inflate(R.layout.login,container,false);
         progressDialog =  new ProgressDialog(getActivity());
-        //cos here we are using fragments, so for it we will use view.findview
-            ed1 = (EditText) view.findViewById(R.id.username);
-            ed2 = (EditText) view.findViewById(R.id.password);
+        ed1 = (EditText) view.findViewById(R.id.username);
 
-
+        ed2 = (EditText) view.findViewById(R.id.password);
         ed1.setText("aa@gmail.com");
         ed2.setText("123456");
-
-
         loginbtn = (Button) view.findViewById(R.id.login);
-
         firebaseAuth = FirebaseAuth.getInstance();
         signup1 =(Button) view.findViewById(R.id.signupu);
         fm = getFragmentManager();
-
         loginbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                // the signin is the method , which i am calling bellow, which will login the users....
                 signin();
             }
         });
-
-
-
         signup1.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -86,70 +76,48 @@ public class login extends Fragment{
 
             }
         });
-
-
         return view;
 
     }
-
     public void signup_window(){
         signup signup = new signup();
-
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.main_screen,signup);
-        //ft.addToBackStack()
+//just fo the sake of testing. . .
+
+        ft.addToBackStack(null);
+
+
         ft.commit();
-
-      //  Toast.makeText(getActivity(),"hello how are u",Toast.LENGTH_SHORT).show();
-
-
     }
-
     public void signin(){
-
         email = ed1.getText().toString().trim();
         password = ed2.getText().toString().trim();
-
-
-
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"plz enter your name",Toast.LENGTH_SHORT).show();
             return;
         }
-
         if(TextUtils.isEmpty(password)) {
             Toast.makeText(getActivity(), "plz enter your password", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
-
        progressDialog.setMessage("Authenticating. ..  .Wait. .");
         progressDialog.show();
-
-
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
-                       // Toast.makeText(getActivity(),"hello i am here",Toast.LENGTH_LONG).show();
-
-                        //     progressDialog.dismiss();
                         if (task.isSuccessful()) {
                            progressDialog.dismiss();
                             Intent i = new Intent(getActivity(),Home_screen.class);
                             startActivity(i);
-
                             Toast.makeText(getActivity(),"Welcome welcomeee",Toast.LENGTH_SHORT).show();
-
                         }
                         else
                             Toast.makeText(getActivity(),"Sorry somthing went wrong, try again. . ",Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 });
-
     }
 
 }

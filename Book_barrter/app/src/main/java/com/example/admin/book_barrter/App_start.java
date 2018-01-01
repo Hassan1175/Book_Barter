@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class App_start extends AppCompatActivity {
 
-    public String compare1 = "Books Catalog";
+    public String compare1 = "Books Catalogue";
     public String compare2 = "Upload Books";
     public String compare3 = "Exchanged Books";
     public String compare4 = "Manage Requests";
@@ -55,7 +55,7 @@ public class App_start extends AppCompatActivity {
         }
     }
 
-    //here i am making various methods for the whoich will be laod the relevent fragment, on clicking the relevant card.......
+    //here i am making various methods for the which will be laod the relevent fragment, on clicking the relevant card.......
     //each card will load relevant fragment...
     //jus  foe the sake of testing. . . .
 
@@ -68,7 +68,6 @@ public class App_start extends AppCompatActivity {
         ft.commit();
     }
 
-
     public void book_upload(){
      Book_upload bu =  new Book_upload();
         FragmentManager fm = getFragmentManager();
@@ -77,8 +76,6 @@ public class App_start extends AppCompatActivity {
         ft.replace(R.id.app_start,bu,"book_upload");
         ft.commit();
     }
-
-
 
     public void book_exchange(){
         Book_exchange be = new Book_exchange();
@@ -96,7 +93,6 @@ public class App_start extends AppCompatActivity {
         ft.replace(R.id.app_start, mange_request,"Requests");
         ft.commit();
     }
-
     public void history(){
         History history = new History();
         FragmentManager fm = getFragmentManager();
@@ -105,16 +101,13 @@ public class App_start extends AppCompatActivity {
         ft.replace(R.id.app_start,history,"Book_catalog");
         ft.commit();
     }
-
     public void My_profile(){
-Profile profile = new Profile();
+        Profile profile = new Profile();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft= fm.beginTransaction();
 
         ft.replace(R.id.app_start,profile,"Book_catalog");
         ft.commit();
     }
-
-
 
 }

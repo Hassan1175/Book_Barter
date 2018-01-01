@@ -13,8 +13,6 @@ public class ResponseModel {
     String requesting_user;
     String picurl;
     String date;
-
-
     public ResponseModel(String response, String ather, String book_category, String current_user, String requesting_user, String picurl, String date) {
         this.response = response;
         this.ather = ather;

@@ -100,7 +100,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
 
-        
+
 
         TextView tv = (TextView) view.findViewById(R.id.Muser);
 
@@ -125,7 +125,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
 
-
         //that button will jsut upload the data on the server for the requested book by the requesting user
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,19 +138,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 forborrowthebooks();
             }
         });
-
-
         // that  is button to show the information about the user in the owner info button
         holder.owner_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 databaseReferenceforprofile = FirebaseDatabase.getInstance().getReference("image");
                 databaseReferenceforprofile.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                             // uploading UploadInfo = postSnapshot.getValue(uploading.class);
                             uploading imageUploadInfo = MainImageUploadInfoList.get(position);
@@ -167,75 +161,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         myprofile.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                //   for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
-
 //pm is  the object of my profile model class
                                 pm = dataSnapshot.getValue(Profile_model.class);
-
-
-                                Log.i("Tag", pm.getContactnum() + "  " + pm.getName() + "  " + pm.getColg());
-
-
                                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-
-                                  LayoutInflater inflater = LayoutInflater.from(context);
+                                LayoutInflater inflater = LayoutInflater.from(context);
                                         View dialogView = inflater.inflate(R.layout.popup, null);
-
                                     naam = (TextView) dialogView.findViewById(R.id.name);
                                 mail = (TextView) dialogView.findViewById(R.id.maill);
                                 number = (TextView) dialogView.findViewById(R.id.fone);
                                 naam = (TextView) dialogView.findViewById(R.id.name);
                                 location = (TextView) dialogView.findViewById(R.id.city);
                                imageView= (ImageView) dialogView.findViewById(R.id.profilepic);
-
                                 String num = pm.getContactnum();
                                 String col  =pm.getColg();
                               String n=  pm.getName();
                                 String e = pm.getEmail();
                             String pic =   pm.getUrlofdp();
-
                                 //that is just to convet URL of  the image into the image from picsso library and set it into the imageview
                                 Picasso.with(context)
                                         .load(pic)
                                         .resize(20,20).into(imageView);
-
-
                                naam.setText(n);
                                number.setText(num);
                                 mail.setText(e);
                                 location.setText(col);
-                            //    URL url = new URL(pm.getUrlofdp());
-                               // Bitmap bmp = BitmapFactory.decodeStream(pic);
-                              //  imageView.setImageBitmap(bmp);
-
-
-
                                 dialogBuilder.setView(dialogView);
-
-                            /*
-                            in order to inflate layout for the dialogue box in android
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-// ...Irrelevant code for customizing the buttons and title
-LayoutInflater inflater = this.getLayoutInflater();
-View dialogView = inflater.inflate(R.layout.alert_label_editor, null);
-dialogBuilder.setView(dialogView);
-
-EditText editText = (EditText) dialogView.findViewById(R.id.label_field);
-editText.setText("test label");
-AlertDialog alertDialog = dialogBuilder.create();
-alertDialog.show();
-                                 */
-
-                           //     AlertDialog.Builder altbox = new AlertDialog.Builder(context);
-                           //     altbox.setMessage("Name  " + pm.getName() + "\n" + "Colg  " + pm.getColg() + "\n" + "Contact  " + pm.getContactnum()).setCancelable(true);
                                 AlertDialog alert = dialogBuilder.create();
-
-                         //       alert.setTitle("Owner Info");
-                                // alert.setView(view);
                                 alert.show();
-
-
                             }
 
                             @Override
@@ -243,10 +195,6 @@ alertDialog.show();
 
                             }
                         });
-
-                        //till here i am fetching info of the owner of the book..
-
-
                     }
 
                     @Override
@@ -273,12 +221,9 @@ alertDialog.show();
         public ImageView imageView;
         TextView DisplayDateTime;
         public Button button;
-
         public Button owner_data;
-
         public ViewHolder(View itemView) {
             super(itemView);
-
             user_name = (TextView) itemView.findViewById(R.id.Muser);
             book_type = (TextView) itemView.findViewById(R.id.type);
             arther_name = (TextView) itemView.findViewById(R.id.writer_name);
@@ -290,19 +235,15 @@ alertDialog.show();
         }
     }
     public void forborrowthebooks() {
-
             myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
             myref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     count3 = dataSnapshot.getChildrenCount();
                     final ProgressDialog dialog = new ProgressDialog(context);
-                    //   dialog.setTitle("Sending borrowing request. . .. . .");
-                    //  dialog.show();
                     databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
                     String key = databaseReference.push().getKey();
                     final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key,s6);
-                    //till here
                     if (count3 <= 3) {
                         try {
                             databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
@@ -310,7 +251,7 @@ alertDialog.show();
                             databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
                             databaseReference2.child(key).setValue(requesting);
                             count3++;
-                            Log.i("Tag", count3 + ""+ "second");
+
                         } catch (Exception e) {
                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
@@ -326,7 +267,7 @@ alertDialog.show();
                         alert.setTitle("Request Response");
                         alert.show();
                     }
-                    Log.i("Tag", count3 + "" + "Inneer");
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -334,9 +275,7 @@ alertDialog.show();
             });
     }
 
-
 // that method is for searching
-
     public void setfilter ( List<uploading>newwlsit){
 
         //re initializing the list
@@ -346,8 +285,4 @@ alertDialog.show();
     }
 
 //till here  . . .   ..   .
-
-
-
-
 }

@@ -65,104 +65,59 @@ public class Profile extends Fragment {
     Button edit;
     ImageView profilepic;
 
-
-
-    // here i jhave to make 5 strings.s.s.s.
-
 public String s1, s2, s3, s4, s5;
-
     static String user_name;
     static  String emailaddress;
     static  String colgname;
     static  String contactnumber;
 
-
 Profile_model profile_model;
-
     private Uri imageuri;
     public static final String Storage_path = "image/";
     public static final int request_code = 1234;
-
  public static final String Database_path =  "Profile_Data";
     String node_name;
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         final View view = inflater.inflate(R.layout.profile,container,false);
-
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        //  setSupportActionBar(toolbar);
-        //that is how to use setsupportActionbar for fragment...above one is for activity..
-
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
         setHasOptionsMenu(true);
-
-
-
         user_email = firebaseAuth.getInstance().getCurrentUser().getEmail().trim();
-
          profilepic = (ImageView) view.findViewById(R.id.dp);
         name = (EditText) view.findViewById(R.id.display_name);
         colg_name  = (EditText) view.findViewById(R.id.colg_name);
         contactnum = (EditText) view.findViewById(R.id.contactno);
           emailid=(EditText) view.findViewById(R.id.email);
-
         change_photo = (Button) view.findViewById(R.id.change_pic);
-
         edit = (Button) view.findViewById(R.id.edit);
-
         update = (Button) view.findViewById(R.id.update);
-
-
-
-
-
         name.setEnabled(false);
         colg_name.setEnabled(false);
         contactnum.setEnabled(false);
-     //   change_photo.setVisibility(view.INVISIBLE);
-
-
-
         dref = FirebaseDatabase.getInstance().getReference("Profile_Data").child(user_email.replace(".","_"));
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-             //   for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                 profile_model = dataSnapshot.getValue(Profile_model.class);
-                    //profile_model = postSnapshot.getValue(Profile_model.class);
-
                     s1=  profile_model.getName().toString();
                     s2 = profile_model.getColg().toString();
                     s3 = profile_model.getContactnum().toString();
                     s4 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                     s5 = profile_model.getUrlofdp();
-
-
                 name.setText(s1);
                 colg_name.setText(s2);
                 contactnum.setText(s3);
                 emailid.setText(user_email);
-
                 Picasso.with(view.getContext())
                         .load(s5)
                         .resize(20,20).into(profilepic);
-
-
-
                 }
-            //}
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
 
 edit.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -170,51 +125,27 @@ edit.setOnClickListener(new View.OnClickListener() {
 
         change_photo.setVisibility(view.VISIBLE);
         update.setVisibility(view.VISIBLE);
-
         name.setEnabled(true);
-
         colg_name.setEnabled(true);
         contactnum.setEnabled(true);
 
-
     }
 });
-
-
-
-
-
-
-        //cos foirebase does not accept .  in node name.. se   "."    of .com  has been replaced by _
-
-
-
         storageReference = FirebaseStorage.getInstance().getReference();
-
         //i  am setting the node as the email address of the current user
         databaseReference =  FirebaseDatabase.getInstance().getReference(Database_path);
-
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 user_name =  name.getText().toString();
-                //    emailaddress =emailid.getText().toString();
                 colgname = colg_name.getText().toString();
                 contactnumber = contactnum.getText().toString();
-
-             //   change_photo.setVisibility(v.VISIBLE);
-               // name.setEnabled(true);
-                //name.setVisibility(v.VISIBLE);
-                //colg_name.setEnabled(true);
-                //contactnum.setEnabled(true);
                 UPLOADED();
             }
         });
         change_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  Toast.makeText(getActivity(),"Hy you can chnage pic hee",Toast.LENGTH_LONG).show();
                 Intent intent  = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -223,8 +154,6 @@ edit.setOnClickListener(new View.OnClickListener() {
         });
         return view;
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -246,19 +175,12 @@ edit.setOnClickListener(new View.OnClickListener() {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
-
-
-
     public void   UPLOADED() {
-
      if (imageuri != null) {
             final ProgressDialog dialog = new ProgressDialog(getActivity());
             dialog.setTitle("Updating Profile");
             dialog.show();
-
-            //get the storgae reference
             StorageReference ref = storageReference.child(Storage_path + System.currentTimeMillis() + "." + getImageExt(imageuri));
-
             //add file to reference
             ref.putFile(imageuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -319,6 +241,5 @@ edit.setOnClickListener(new View.OnClickListener() {
         }
         return  true;
     }
-
 
 }

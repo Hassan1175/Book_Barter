@@ -13,7 +13,6 @@ public class BorrowModel {
     public String name_ather;
     public String urlofpic;
     public String date;
-
     public String getId() {
         return id;
     }

@@ -41,119 +41,63 @@ import java.util.zip.Inflater;
 
 public class Book_catalog extends Fragment implements SearchView.OnQueryTextListener {
     public Button borrow;
-
     public static long count;
-
     FirebaseAuth firebaseAuth ;
-    // Creating DatabaseReference.
     DatabaseReference databaseReference;
-    // Creating RecyclerView.
     RecyclerView recyclerView;
-    // Creating Progress dialog
     ProgressDialog progressDialog;
-
-    // Creating RecyclerView.Adapter.
     RecyclerView.Adapter adapter;
-
-
     RecyclerView.Adapter newadapter;
     DatabaseReference myref;
     Toolbar toolbar;
-
     RecyclerViewAdapter adapter2;
-
     public static String bookname;
-
     // Creating List of Model class, which is named as uploading.. . .
     List<uploading> list = new ArrayList<>();
-
-    List<uploading> newlist = new ArrayList<>();
-
-    List<String> allbooks = new ArrayList<>();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-//        return super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.book_catalog,container,false);
-        //borrow = (Button) view.findViewById(R.id.newbutton);
-
-
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
-        //that is how to use setsupportActionbar for fragment...above one is for activity..
-
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         setHasOptionsMenu(true);
-
-
-
-
-
-        // Assign id to RecyclerView.
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
-
-        // Setting RecyclerView size true.
         recyclerView.setHasFixedSize(true);
         // Setting RecyclerView layout as LinearLayout. get activity is the conext of the mentioend class.. (Which is using as fragments)
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-
 // Assign class to progress dialog.
         progressDialog = new ProgressDialog(getActivity());
-
-
         // Setting up message in Progress dialog.
         progressDialog.setMessage("Loading Data from Remote Database. . . ..");
         progressDialog.show();
 
-
         // Setting up Firebase image upload folder path in databaseReference.
         // The path is already defined in Book_upload Class.
         databaseReference = FirebaseDatabase.getInstance().getReference(Book_upload.Database_path);
-
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
                     uploading imageUploadInfo = postSnapshot.getValue(uploading.class);
-                    //imageUploadInfo.getmuser().toString();
-
-                  //  allbooks.add(imageUploadInfo.getAther_name().toString());
 
                  //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(imageUploadInfo.getmuser())) {
                         list.add(imageUploadInfo);
-
                    // }
                 }
                 // this is the object of the custom adopter class of the recycle view. . .
                 adapter2 = new RecyclerViewAdapter(getActivity(), list);
-
                 recyclerView.setAdapter(adapter2);
-
-
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
-                // Hiding the progress dialog.
                 progressDialog.dismiss();
             }
         });
-
-
-
-//        counnt();
-
-
         return view;
     }
 
@@ -204,22 +148,5 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         }
         return  true;
     }
-    // till here. . ..
-//    public void counnt() {
-//        myref = FirebaseDatabase.getInstance().getReference("borrow").child(firebaseAuth.getInstance().getCurrentUser().getEmail().toString().replace(".", "_"));
-//        myref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                count = dataSnapshot.getChildrenCount();
-//                Log.i("Tag", count + "" + "Inneer");
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//    }
-    // that is just the getter of the variable count.. Cos we have toi get the values of the count in the adopter class tfhrough the object of that class.
-//    public long getCount() {
-  //      return count;
-    //}
+
 }
