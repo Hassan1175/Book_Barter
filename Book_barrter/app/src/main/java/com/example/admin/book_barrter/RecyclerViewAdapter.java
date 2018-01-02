@@ -146,14 +146,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 databaseReferenceforprofile.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            // uploading UploadInfo = postSnapshot.getValue(uploading.class);
+                     //   for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                      //       uploading UploadInfo = postSnapshot.getValue(uploading.class);
+
+
                             uploading imageUploadInfo = MainImageUploadInfoList.get(position);
 
                             clicked_owner_info = imageUploadInfo.getmuser();
 
                             owner = clicked_owner_info.replace(".", "_");
-                        }
+                 //      }
                         // in above data change method, i made datachange method to get the email of the owner of book, then below i am makng again
                         // database reference to get the data of the got email address... . .
 

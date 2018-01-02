@@ -3,6 +3,7 @@ package com.example.admin.book_barrter;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -26,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class signup extends Fragment {
-
+    View view;
     Button enroll;
 
     EditText ed1;
@@ -40,8 +41,15 @@ public class signup extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.signup,container,false);
 
+
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            view = inflater.inflate(R.layout.signup,container,false);
+        }
+        else {
+            view = inflater.inflate(R.layout.signup2,container,false);
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
 
