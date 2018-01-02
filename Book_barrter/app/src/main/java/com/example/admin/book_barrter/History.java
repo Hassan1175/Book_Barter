@@ -39,7 +39,7 @@ public class History extends Fragment {
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
     RecyclerView.Adapter adapter ;
-    List<ResponseModel> list = new ArrayList<>();
+ //   List<ResponseModel> list = new ArrayList<>();
 
     ResponseModel responseinfo;
 
@@ -63,6 +63,7 @@ public class History extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                List<ResponseModel> list = new ArrayList<>();
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()){
                     responseinfo = postSnapshot.getValue(ResponseModel.class);
                     list.add(responseinfo);

@@ -84,7 +84,9 @@ Profile_model profile_model;
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
+
         user_email = firebaseAuth.getInstance().getCurrentUser().getEmail().trim();
+
          profilepic = (ImageView) view.findViewById(R.id.dp);
         name = (EditText) view.findViewById(R.id.display_name);
         colg_name  = (EditText) view.findViewById(R.id.colg_name);
@@ -100,12 +102,18 @@ Profile_model profile_model;
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 profile_model = dataSnapshot.getValue(Profile_model.class);
+
                     s1=  profile_model.getName().toString();
+
+                Log.i("Tagg","oy mamaaa  " + s1 +" ");
                     s2 = profile_model.getColg().toString();
                     s3 = profile_model.getContactnum().toString();
                     s4 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                     s5 = profile_model.getUrlofdp();
+
+
                 name.setText(s1);
                 colg_name.setText(s2);
                 contactnum.setText(s3);

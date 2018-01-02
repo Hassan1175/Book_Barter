@@ -13,7 +13,8 @@ public class ResponseModel {
     String requesting_user;
     String picurl;
     String date;
-    public ResponseModel(String response, String ather, String book_category, String current_user, String requesting_user, String picurl, String date) {
+    String id;
+    public ResponseModel(String response, String ather, String book_category, String current_user, String requesting_user, String picurl, String date, String id) {
         this.response = response;
         this.ather = ather;
         this.book_category = book_category;
@@ -21,6 +22,7 @@ public class ResponseModel {
         this.requesting_user = requesting_user;
         this.picurl = picurl;
         this.date = date;
+        this.id = id;
     }
 
     public ResponseModel(){
@@ -53,5 +55,9 @@ public class ResponseModel {
 
     public String getDate() {
         return date;
+    }
+
+    public String getId() {
+        return id;
     }
 }

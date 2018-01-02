@@ -91,6 +91,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               PICURL  =  borrowinfo.getUrlofpic().toString();
                               // here i am commenting that date, cos i supposed to send current date/time.. that is old one.. so new is found below
                            //   date = borrowinfo.getDate().toString();
+                              //responce back to requesting user
                               responseback();
                               Toast.makeText(context,"Thanks for sharing your book. . .",Toast.LENGTH_LONG).show();
 
@@ -100,6 +101,16 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               DatabaseReference dr = FirebaseDatabase.getInstance().getReference("borrow2").child(borrowinfo.getId());
                               dr.removeValue();
                               notifyDataSetChanged();
+
+
+                              //that delete will also dete the node from the borrow ... to update the count..
+                              String requesting_bnda = borrowinfo.requesting_user.replace(".","_");
+                              String requesting_id =  borrowinfo.getId();
+                              Log.i("Tagg",requesting_bnda +"   "+ requesting_id );
+                              DatabaseReference dref = FirebaseDatabase.getInstance().getReference("borrow").child(requesting_bnda).child(requesting_id);
+                              dref.removeValue();
+                              notifyDataSetChanged();
+
                           }
                       })
                       .setNegativeButton("NO",new DialogInterface.OnClickListener(){
@@ -114,6 +125,28 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
                               PICURL  =  borrowinfo.getUrlofpic().toString();
                               responseback();
                               Toast.makeText(context,"Thanks for your response. . . .",Toast.LENGTH_LONG).show();
+
+   // that deleting is just to delete the info from requests list from borrow2 node
+                           //   borrowiteminfo.remove(position);
+                             // notifyItemRemoved(position);
+                              DatabaseReference dr = FirebaseDatabase.getInstance().getReference("borrow2").child(borrowinfo.getId());
+                              dr.removeValue();
+                              notifyDataSetChanged();
+    //that delete will also dete the node from the borrow ... to update the count..
+
+
+                              String requesting_bnda = borrowinfo.requesting_user.replace(".","_");
+                              String requesting_id =  borrowinfo.getId();
+                              Log.i("Tagg",requesting_bnda +"   "+ requesting_id );
+                              DatabaseReference dref = FirebaseDatabase.getInstance().getReference("borrow").child(requesting_bnda).child(requesting_id);
+                              dref.removeValue();
+                              notifyDataSetChanged();
+
+
+
+
+
+
                           }
                       });
                 AlertDialog alert = altbox.create();
@@ -216,7 +249,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
          dialog.show();
          databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathhh);
          String key = databaseReference.push().getKey();
-         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,Date);
+         ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,Date,key);
 
          try{
              // databaseReference.child(requesting.getrequesting_user().replace(".","_")).setValue(requesting);

@@ -3,6 +3,7 @@ package com.example.admin.book_barrter;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -253,18 +254,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
                             databaseReference2.child(key).setValue(requesting);
                             count3++;
-
                         } catch (Exception e) {
                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
-                        dialog.dismiss();
-                        Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
+                       // Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
+                        long number = 4 - count3;
+
+                        AlertDialog.Builder box = new AlertDialog.Builder(context);
+                        box.setMessage("Request has successfully sent . . . You can borrow "+ number +" more books")
+                                .setPositiveButton("OK",new DialogInterface.OnClickListener(){
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                } );
+                        AlertDialog alert = box.create();
+                        alert.setTitle("Request Response");
+                        alert.show();
                     }
 
                     else{
                         AlertDialog.Builder altbox =  new AlertDialog.Builder(context);
-                        altbox.setMessage("Request Failed !!! As you have borrowed four book, which is maximum limit.");
+                        altbox.setMessage("Request Failed !!! As you have borrowed four book, which is maximum limit.").setCancelable(false)
+
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
                         AlertDialog alert = altbox.create();
                         alert.setTitle("Request Response");
                         alert.show();

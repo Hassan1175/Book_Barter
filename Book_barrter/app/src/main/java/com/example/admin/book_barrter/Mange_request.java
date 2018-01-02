@@ -41,7 +41,8 @@ public class Mange_request extends Fragment {
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
     RecyclerView.Adapter adapter ;
-    List<BorrowModel> list = new ArrayList<>();
+
+    //List<BorrowModel> list = new ArrayList<>();
     public static  String owner;
     BorrowModel borrowModel;
     @Nullable
@@ -63,6 +64,8 @@ public class Mange_request extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+//initializing in the data change for deleting purposes.  . .. .
+                List<BorrowModel> list = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     borrowModel =  postSnapshot.getValue(BorrowModel.class);
 
