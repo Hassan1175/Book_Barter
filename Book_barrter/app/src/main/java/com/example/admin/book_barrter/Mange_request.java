@@ -58,9 +58,9 @@ public class Mange_request extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Requests from users are loading. .  ..");
         progressDialog.show();
-        Toast.makeText(getActivity(), "Hello I ahere.    .", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), "Hello I ahere.    .", Toast.LENGTH_SHORT).show();
         databaseReference = FirebaseDatabase.getInstance().getReference("borrow2");
-        Toast.makeText(getActivity(), "Hello I ahere. again   .", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Hello I ahere. again   .", Toast.LENGTH_SHORT).show();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,13 +68,13 @@ public class Mange_request extends Fragment {
                 List<BorrowModel> list = new ArrayList<>();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                     borrowModel =  postSnapshot.getValue(BorrowModel.class);
-
-
 //thtat check is working perfecly.. for testing sake, it hs been commented
-                //   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
+                   if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals(borrowModel.getBook_owner())) {
+                    //   list.isEmpty();
                         list.add(borrowModel);
-                  //  }
+                    }
                 }
+
 
                 adapter =  new B_recylerviewAdopter(getActivity(),list);
                 recyclerView.setAdapter(adapter);

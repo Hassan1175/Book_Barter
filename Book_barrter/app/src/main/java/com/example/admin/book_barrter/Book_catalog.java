@@ -53,7 +53,7 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
     RecyclerViewAdapter adapter2;
     public static String bookname;
     // Creating List of Model class, which is named as uploading.. . .
-    List<uploading> list = new ArrayList<>();
+   List<uploading> list = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+            
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
                     uploading imageUploadInfo = postSnapshot.getValue(uploading.class);

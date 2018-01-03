@@ -65,8 +65,13 @@ public class History extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<ResponseModel> list = new ArrayList<>();
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()){
+
                     responseinfo = postSnapshot.getValue(ResponseModel.class);
-                    list.add(responseinfo);
+
+                    if (firebaseAuth.getInstance().getCurrentUser().getEmail().equals( responseinfo.getRequesting_user())){
+                        list.add(responseinfo);
+                    }
+
                 }
                 adapter =  new RecyclerViewForResponse(getActivity(),list);
                 recyclerView.setAdapter(adapter);

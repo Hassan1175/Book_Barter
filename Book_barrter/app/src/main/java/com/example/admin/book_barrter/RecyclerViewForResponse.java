@@ -44,7 +44,10 @@ public class RecyclerViewForResponse extends RecyclerView.Adapter<RecyclerViewFo
     public void onBindViewHolder(final  RecyclerViewForResponse.ViewHolder holder, final int position) {
 
         final  ResponseModel Responseinfo = responseiteminfo.get(position);
-        holder.user_name.setText(Responseinfo.getRequesting_user());
+       // holder.user_name.setText(Responseinfo.getRequesting_user());
+
+
+        holder.user_name.setText( Responseinfo.getCurrent_user());
         holder.book_type.setText(Responseinfo.getBook_category());
         holder.arther_name.setText(Responseinfo.getAther());
         holder.date.setText(Responseinfo.getDate());
@@ -101,7 +104,9 @@ public class RecyclerViewForResponse extends RecyclerView.Adapter<RecyclerViewFo
         public ViewHolder(View itemView) {
             super(itemView);
             Status=(TextView) itemView.findViewById(R.id.Status);
+
             user_name = (TextView) itemView.findViewById(R.id.R_Muser);
+
             book_type = (TextView) itemView.findViewById(R.id.R_type);
             arther_name = (TextView) itemView.findViewById(R.id.R_writer_name);
             imageView = (ImageView) itemView.findViewById(R.id.R_book_photo);

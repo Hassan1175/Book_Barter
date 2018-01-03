@@ -30,7 +30,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -41,6 +43,9 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    Calendar calendar;
+    SimpleDateFormat simpledateformat ;
+
     TextView naam;
     TextView number;
     TextView mail;
@@ -48,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     ImageView imageView;
 
-    public static long count3;
+    public static long bookcount;
 
     public final String Database_pathh = "borrow";
     public final String Database_pathh2 = "borrow2";
@@ -86,6 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // Book_upload bu;
 
     Context context;
+
     List<uploading> MainImageUploadInfoList;
 
 
@@ -130,12 +136,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                simpledateformat = new SimpleDateFormat("dd-MM-yyyy / HH:mm:ss");
+               // Date = simpledateformat.format(calendar.getTime());
+
+
+
+
                 s1 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                 s2 = UploadInfo.getmuser().toString();
                 s3 = UploadInfo.getBook_type().toString();
                 s4 = UploadInfo.getAther_name().toString();
                 s5 = UploadInfo.getUrl().toString();
-                s6 = UploadInfo.getDate().toString();
+                s6 = simpledateformat.format(calendar.getTime());
                 forborrowthebooks();
             }
         });
@@ -243,24 +257,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             myref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    count3 = dataSnapshot.getChildrenCount();
+                    bookcount = dataSnapshot.getChildrenCount();
                     final ProgressDialog dialog = new ProgressDialog(context);
                     databaseReference = FirebaseDatabase.getInstance().getReference(Database_pathh);
                     String key = databaseReference.push().getKey();
                     final BorrowModel requesting = new BorrowModel(s1, s2, s3, s4, s5, key,s6);
-                    if (count3 <= 3) {
+                    if (bookcount<= 3) {
                         try {
                             databaseReference.child(s1.replace(".", "_")).child(key).setValue(requesting);
          //databaseReference2 is just a jugaar to show the requests to the relevant users
                             databaseReference2 = FirebaseDatabase.getInstance().getReference(Database_pathh2);
                             databaseReference2.child(key).setValue(requesting);
-                            count3++;
+                            bookcount++;
                         } catch (Exception e) {
                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                         }
 
                        // Toast.makeText(context, "Request has been sent to the owner of the book.  . .. ", Toast.LENGTH_LONG).show();
-                        long number = 4 - count3;
+                        long number = 4 - bookcount;
 
                         AlertDialog.Builder box = new AlertDialog.Builder(context);
                         box.setMessage("Request has successfully sent . . . You can borrow "+ number +" more books")
@@ -296,6 +310,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
             });
     }
+
+
+ // Source : https://www.youtube.com/watch?v=j9_hcfWVkIc
 
 // that method is for searching
     public void setfilter ( List<uploading>newwlsit){

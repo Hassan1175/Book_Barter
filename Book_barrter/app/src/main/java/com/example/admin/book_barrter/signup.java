@@ -76,12 +76,6 @@ public class signup extends Fragment {
         contact = (EditText) view .findViewById(R.id.nmber);
         city = (EditText) view.findViewById(R.id.city);
 
-
-
-
-
-
-
          ed1 = (EditText) view.findViewById(R.id.email);
          ed2 = (EditText) view.findViewById(R.id.paswordd);
 
