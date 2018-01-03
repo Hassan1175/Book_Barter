@@ -113,7 +113,7 @@ public class Book_upload extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(),parent.getItemAtPosition(position) + "Selected",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),parent.getItemAtPosition(position) + "Selected",Toast.LENGTH_LONG).show();
                 category =  parent.getItemAtPosition(position).toString();
             }
             @Override
@@ -143,7 +143,7 @@ public class Book_upload extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == request_code && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null){
+        if(requestCode == requestCode && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null){
             imageuri = data.getData();
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageuri);

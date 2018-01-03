@@ -121,6 +121,18 @@ public class signup extends Fragment {
             Toast.makeText(getActivity(), "plz enter your Password", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(TextUtils.isEmpty(   naaam )) {
+            Toast.makeText(getActivity(), "plz enter your Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(  info)) {
+            Toast.makeText(getActivity(), "plz enter your Contact#", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty( clg)) {
+            Toast.makeText(getActivity(), "plz enter your Working Place", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(password.equals(matchpassword)){
        progressDialog.setMessage("User is Registering. .  ..");
