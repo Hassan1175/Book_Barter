@@ -98,16 +98,18 @@ Profile_model profile_model;
         name.setEnabled(false);
         colg_name.setEnabled(false);
         contactnum.setEnabled(false);
+
+
         dref = FirebaseDatabase.getInstance().getReference("Profile_Data").child(user_email.replace(".","_"));
         dref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 profile_model = dataSnapshot.getValue(Profile_model.class);
-
+              //  Log.i("Tagg","oy mamaaa  " + profile_model.getName()+" ");
                     s1=  profile_model.getName().toString();
 
-                Log.i("Tagg","oy mamaaa  " + s1 +" ");
+
                     s2 = profile_model.getColg().toString();
                     s3 = profile_model.getContactnum().toString();
                     s4 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();

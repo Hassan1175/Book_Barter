@@ -128,7 +128,8 @@ public class Book_upload extends Fragment {
                 Intent intent  = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent,"Select Image"),request_code);
+                startActivityForResult(intent,request_code);
+                startActivityForResult(Intent.createChooser(intent,""),request_code);
             }
         });
         upload.setOnClickListener(new View.OnClickListener(){
@@ -142,7 +143,7 @@ public class Book_upload extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == requestCode && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null){
+        if(requestCode == request_code && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null){
             imageuri = data.getData();
             try {
                 Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageuri);
@@ -195,7 +196,7 @@ public void UPLOADED(){
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 //show upload progress
                 double progress = (100 *taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                dialog.setMessage("Uploaded "+ (int)progress+"");
+                dialog.setMessage("Uploaded "+ (int)progress+"%");
             }
         });
 

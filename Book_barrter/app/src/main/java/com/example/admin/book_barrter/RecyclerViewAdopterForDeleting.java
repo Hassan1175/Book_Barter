@@ -96,6 +96,8 @@ public class RecyclerViewAdopterForDeleting extends RecyclerView.Adapter<Recycle
     public int getItemCount() {
         return MainImageUploadInfoList.size();
     }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView user_name;
         public TextView book_type;

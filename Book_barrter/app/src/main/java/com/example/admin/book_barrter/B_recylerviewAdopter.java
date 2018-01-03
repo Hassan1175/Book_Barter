@@ -245,8 +245,8 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
          Date = simpledateformat.format(calendar.getTime());
          Date = simpledateformat.format(calendar.getTime());
          final ProgressDialog dialog = new ProgressDialog(context);
-         dialog.setTitle("Sending borrowing request. . .. . .");
-         dialog.show();
+       //  dialog.setTitle("Sending borrowing request. . .. . .");
+       //  dialog.show();
          databaseReference =  FirebaseDatabase.getInstance().getReference(Database_pathhh);
          String key = databaseReference.push().getKey();
          ResponseModel responseModel = new ResponseModel(response,ather,book_category,current_user,requesting_user,PICURL,Date,key);
@@ -258,7 +258,7 @@ public class B_recylerviewAdopter  extends RecyclerView.Adapter<B_recylerviewAdo
          catch (Exception e){
              Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
          }
-         dialog.dismiss();
+         //dialog.dismiss();
          Toast.makeText(context,"Response has been sent to the requested user..  . .. ",Toast.LENGTH_LONG).show();
      }
 }

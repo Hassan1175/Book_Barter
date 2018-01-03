@@ -70,8 +70,6 @@ public class Book_exchange extends Fragment {
                         list.add(imageUploadInfo);
                     }
                 }
-
-
                 //adopter setinng
                 adapter = new RecyclerViewAdopterForDeleting(getActivity(), list);
                 recyclerView.setAdapter(adapter);

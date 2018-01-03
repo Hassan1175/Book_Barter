@@ -143,6 +143,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.owner_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 databaseReferenceforprofile = FirebaseDatabase.getInstance().getReference("image");
                 databaseReferenceforprofile.addValueEventListener(new ValueEventListener() {
                     @Override
