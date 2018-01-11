@@ -44,9 +44,6 @@ public class Home_screen extends AppCompatActivity {
             setContentView(R.layout.home_screen2);
         }
 
-
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
           setSupportActionBar(toolbar);
         TextView tv1 = (TextView) findViewById(R.id.header1);
@@ -63,6 +60,8 @@ public class Home_screen extends AppCompatActivity {
         head5 = tv5.getText().toString().trim();
         head6 = tv6.getText().toString().trim();
     }
+
+
     public void Book_catalog(View view) {
 
         Intent i = new Intent(this,App_start.class);

@@ -108,7 +108,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_item, parent, false);
 
 
-
         TextView tv = (TextView) view.findViewById(R.id.Muser);
 
         test = tv.getText().toString().trim();
@@ -132,7 +131,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Glide.with(context).load(UploadInfo.getUrl()).into(holder.imageView);
 
-        //that button will jsut upload the data on the server for the requested book by the requesting user
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,9 +138,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 calendar = Calendar.getInstance();
                 simpledateformat = new SimpleDateFormat("dd-MM-yyyy / HH:mm:ss");
                // Date = simpledateformat.format(calendar.getTime());
-
-
-
 
                 s1 = firebaseAuth.getInstance().getCurrentUser().getEmail().toString();
                 s2 = UploadInfo.getmuser().toString();
@@ -153,17 +148,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 forborrowthebooks();
             }
         });
-        // that  is button to show the information about the user in the owner info button
+
         holder.owner_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                databaseReferenceforprofile = FirebaseDatabase.getInstance().getReference("image");
-                databaseReferenceforprofile.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                     //   for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                      //       uploading UploadInfo = postSnapshot.getValue(uploading.class);
 
 
                             uploading imageUploadInfo = MainImageUploadInfoList.get(position);
@@ -171,7 +159,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             clicked_owner_info = imageUploadInfo.getmuser();
 
                             owner = clicked_owner_info.replace(".", "_");
-                 //      }
+
                         // in above data change method, i made datachange method to get the email of the owner of book, then below i am makng again
                         // database reference to get the data of the got email address... . .
 
@@ -213,13 +201,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                             }
                         });
-                    }
+        //            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+          //          @Override
+            //        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+//                    }
+  //              });
 
             }
         });

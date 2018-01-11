@@ -65,6 +65,7 @@ public class App_start extends AppCompatActivity {
         FragmentTransaction ft= fm.beginTransaction();
 
         ft.replace(R.id.app_start,books,"Book_catalog");
+
         ft.commit();
     }
 

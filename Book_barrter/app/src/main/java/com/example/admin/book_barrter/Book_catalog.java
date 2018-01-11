@@ -63,6 +63,7 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         setHasOptionsMenu(true);
+
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         // Setting RecyclerView layout as LinearLayout. get activity is the conext of the mentioend class.. (Which is using as fragments)
@@ -79,7 +80,7 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            
+
                 for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
 
                     uploading imageUploadInfo = postSnapshot.getValue(uploading.class);
@@ -112,6 +113,8 @@ public class Book_catalog extends Fragment implements SearchView.OnQueryTextList
         searchView.setOnQueryTextListener(this);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    // Source : https://www.youtube.com/watch?v=j9_hcfWVkIc
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;

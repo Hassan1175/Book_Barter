@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
+
+
+//help Source : https://www.youtube.com/watch?v=fgaj-aai90I
+
 public class welcome extends AppCompatActivity implements View.OnClickListener{
 
 public  String my ;
